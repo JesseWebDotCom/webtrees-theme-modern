@@ -95,7 +95,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
      */
     public function customModuleLatestVersionUrl(): string
     {
-        return 'https://github.com/JesseWebDotCom/webtrees-theme-modern/main/latest-version.txt';
+        return 'https://github.com/JesseWebDotCom/webtrees-theme-modern/releases/latest';
     }
 
     /**
