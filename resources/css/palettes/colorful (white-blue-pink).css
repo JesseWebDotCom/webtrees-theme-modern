@@ -1,0 +1,16 @@
+:root {
+    --theme-body-background-color-rgb: 248, 249, 250;
+    --theme-card-body-background-color-rgb: var(--theme-seconddary-header-background-color-rgb);
+    --theme-card-header-background-color-rgb: var(--theme-seconddary-header-background-color-rgb);
+    --theme-card-header-font-color-rgb: var(--theme-secondary-header-font-color-rgb);
+    --theme-card-font-color-rgb: 255, 255, 255;
+    --theme-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --theme-font-color-rgb: 56, 56, 56;
+    --theme-accent-background-color-rgb: 235, 105, 147;
+    --theme-accent-font-color-rgb: 255, 255, 255;
+    --theme-primary-header-background-color-rgb: 23, 26, 63;
+    --theme-primary-header-font-color-rgb: 255, 255, 255;
+    --theme-seconddary-header-background-color-rgb: 245, 245, 245;
+    --theme-secondary-header-font-color-rgb: 57, 54, 78;
+    --theme-google_maps-icon-color-rgb: var(--theme-accent-background-color-rgb);
+}

@@ -1,0 +1,139 @@
+<?php
+
+use Fisharebest\Webtrees\Auth;
+use Fisharebest\Webtrees\Fact;
+use Fisharebest\Webtrees\Http\RequestHandlers\AddNewFact;
+use Fisharebest\Webtrees\Http\RequestHandlers\DeleteRecord;
+use Fisharebest\Webtrees\Http\RequestHandlers\EditFactPage;
+use Fisharebest\Webtrees\Http\RequestHandlers\EditRawRecordPage;
+use Fisharebest\Webtrees\Http\RequestHandlers\ReorderFamiliesPage;
+use Fisharebest\Webtrees\Http\RequestHandlers\ReorderMediaPage;
+use Fisharebest\Webtrees\Http\RequestHandlers\ReorderNamesPage;
+use Fisharebest\Webtrees\I18N;
+use Fisharebest\Webtrees\Individual;
+use Illuminate\Support\Collection;
+
+/**
+ * @var bool                   $can_upload_media
+ * @var Collection<int,Fact>   $clipboard_facts
+ * @var Individual             $record
+ * @var Collection<int,string> $shares
+ */
+
+?>
+
+<div class="dropdown wt-page-menu">
+    <button class="btn btn-primary dropdown-toggle wt-page-menu-button" type="button" id="page-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <?= view('icons/menu') ?>
+        <?= I18N::translate('edit') ?>
+    </button>
+
+    <div class="dropdown-menu dropdown-menu-end wt-page-menu-items" aria-labelledby="page-menu">
+        <?php if ($shares->isNotEmpty()): ?>
+            <button class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#wt-shares-modal">
+                <?= view('icons/share') ?>
+                <?= I18N::translate('Share') ?>
+            </button>
+
+            <hr>
+        <?php endif ?>
+
+        <?php foreach ($record->facts(['NAME'], false, null, true) as $fact) : ?>
+            <?php if ($fact->canEdit()) : ?>
+                <a class="dropdown-item" href="<?= e(route(EditFactPage::class, ['xref' => $record->xref(), 'fact_id' => $fact->id(), 'tree' => $record->tree()->name()])) ?>">
+                    <?= view('icons/edit') ?>
+                    <?= I18N::translate('Edit the name') ?>
+                </a>
+            <?php endif ?>
+        <?php endforeach ?>        
+        <a class="dropdown-item" href="<?= e(route(AddNewFact::class, ['tree' => $record->tree()->name(), 'xref' => $record->xref(), 'fact' => 'NAME'])) ?>">
+            <?= view('icons/add') ?>
+            <?= I18N::translate('Add a name') ?>
+        </a>
+
+        <?php if ($record->facts(['NAME'], false, null, true)->count() > 1) : ?>
+            <a class="dropdown-item" href="<?= e(route(ReorderNamesPage::class, ['tree' => $record->tree()->name(), 'xref' => $record->xref()])) ?>">
+                <?= view('icons/reorder') ?>
+                <?= I18N::translate('Re-order names') ?>
+            </a>
+        <?php else : ?>
+            <div class="dropdown-item disabled">
+                <?= view('icons/spacer') ?>
+                <?= I18N::translate('Re-order names') ?>
+            </div>
+        <?php endif ?>
+
+        <div class="dropdown-divider"></div>
+
+        <?php if ($record->facts(['SEX'], false, null, true)->isEmpty()) : ?>
+            <a class="dropdown-item" href="<?= e(route(AddNewFact::class, ['fact' => 'SEX', 'tree' => $record->tree()->name(), 'xref' => $record->xref()])) ?>">
+                <?= view('icons/edit') ?>
+                <?= I18N::translate('Edit the gender') ?>
+            </a>
+        <?php endif ?>
+
+        <?php foreach ($record->facts(['SEX'], false, null, true) as $fact) : ?>
+            <?php if ($fact->canEdit()) : ?>
+                <a class="dropdown-item" href="<?= e(route(EditFactPage::class, ['xref' => $record->xref(), 'fact_id' => $fact->id(), 'tree' => $record->tree()->name()])) ?>">
+                    <?= view('icons/edit') ?>
+                    <?= I18N::translate('Edit the gender') ?>
+                </a>
+            <?php endif ?>
+        <?php endforeach ?>
+
+        <div class="dropdown-divider"></div>
+
+        <?php if ($record->spouseFamilies()->count() > 1 || $record->childFamilies()->count() > 1) : ?>
+            <a class="dropdown-item" href="<?= e(route(ReorderFamiliesPage::class, ['tree' => $record->tree()->name(), 'xref' => $record->xref()])) ?>">
+                <?= view('icons/reorder') ?>
+                <?= I18N::translate('Re-order families') ?>
+            </a>
+        <?php else : ?>
+            <div class="dropdown-item disabled">
+                <?= view('icons/spacer') ?>
+                <?= I18N::translate('Re-order families') ?>
+            </div>
+        <?php endif ?>
+
+        <div class="dropdown-divider"></div>
+
+        <?php if ($can_upload_media) : ?>
+            <a class="dropdown-item" href="<?= e(route(AddNewFact::class, ['tree' => $record->tree()->name(), 'xref' => $record->xref(), 'fact' => 'OBJE'])) ?>">
+                <?= view('icons/add') ?>
+                <?= I18N::translate('Add a media object') ?>
+            </a>
+        <?php endif ?>
+
+        <?php if ($record->facts(['OBJE'], false, null, true)->count() > 1) : ?>
+            <a class="dropdown-item" href="<?= e(route(ReorderMediaPage::class, ['tree' => $record->tree()->name(), 'xref' => $record->xref()])) ?>">
+                <?= view('icons/reorder') ?>
+                <?= I18N::translate('Re-order media') ?>
+            </a>
+        <?php else : ?>
+            <div class="dropdown-item disabled">
+                <?= view('icons/spacer') ?>
+                <?= I18N::translate('Re-order media') ?>
+            </div>
+        <?php endif ?>
+
+        <?php if ($clipboard_facts->isNotEmpty()) : ?>
+            <div class="dropdown-divider"></div>
+
+            <?= view('record-page-menu-clipboard', ['clipboard_facts' => $clipboard_facts, 'record' => $record]) ?>
+        <?php endif ?>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="#" data-wt-confirm="<?= I18N::translate('Are you sure you want to delete “%s”?', strip_tags($record->fullName())) ?>" data-wt-post-url="<?= e(route(DeleteRecord::class, ['tree' => $record->tree()->name(), 'xref' => $record->xref()])) ?>">
+            <?= view('icons/delete') ?>
+            <?= I18N::translate('Delete') ?>
+        </a>
+
+        <?php if (Auth::isAdmin() || $record->tree()->getPreference('SHOW_GEDCOM_RECORD')) : ?>
+            <a class="dropdown-item" href="<?= e(route(EditRawRecordPage::class, ['tree' => $record->tree()->name(), 'xref' => $record->xref()])) ?>">
+                <?= view('icons/edit') ?>
+                <?= I18N::translate('Edit the raw GEDCOM') ?>
+            </a>
+        <?php endif ?>
+    </div>
+</div>
