@@ -73,7 +73,7 @@ if ($tag === 'MARR') {
 
 // get fact year and persons age
 $age = '';
-if ($record->getBirthDate()->isOK()) {
+if (($record->tag() === Individual::RECORD_TYPE) && $record->getBirthDate()->isOK()) {
     $age = new Age($record->getBirthDate(), $fact->date());
     $age = I18N::number($age->ageYears());
     if ($age != '0') {
@@ -88,6 +88,8 @@ if ($year == '0') {
     $year = '';
 }
 ?>
+
+<?php if (($record->tag() === Individual::RECORD_TYPE)) : ?>
 <tr class="<?= implode(' ', $styles) ?>">
     <td>
         <div>
@@ -95,6 +97,7 @@ if ($year == '0') {
     <div class=fact_age><?= $age ?></div>
 </div>
 </td>
+<?php endif ?>
     <td>
         <div style="display: flex; align-items: center;">
             <?php if ($tree->getPreference('SHOW_FACT_ICONS')) : ?>
