@@ -458,6 +458,12 @@ span.wt-icon-expand {
     display: none;
 }
 
+/* accordion header */
+[dir] .accordion-button:not(.collapsed) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 /* color right arrow expanded */
 [dir] .accordion-button:not(.collapsed):after {
     background-image: none;
@@ -466,7 +472,8 @@ span.wt-icon-expand {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     font-size: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
 /* color right arrow collapsed */
@@ -694,6 +701,10 @@ span.wt-icon-expand {
 /* #region | MENUS */
 
 /* offcanvas - submenu */
+[dir] .offcanvas-body {
+    padding: 1rem !important;
+}
+
 #offcanvasNavbar,
 #offcanvasNavbar a {
     font-weight: 300;
