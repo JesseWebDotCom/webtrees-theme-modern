@@ -76,16 +76,23 @@ $age = '';
 if (($record->tag() === Individual::RECORD_TYPE) && $record->getBirthDate()->isOK()) {
     $age = new Age($record->getBirthDate(), $fact->date());
     $age = I18N::number($age->ageYears());
+}
+$min_year = $fact->date()->minimumDate()->year();
+$max_year = $fact->date()->maximumDate()->year();
+
+if ($min_year == '0') {
+    $age = '';
+    $year = '';
+} elseif ($min_year == $max_year) {
+    $year = $min_year;
     if ($age != '0') {
         $age = 'Age ' . $age;
     } else {
         $age = '';
     }
-}
-$year = $fact->date()->minimumDate()->year();
-if ($year == '0') {
-    $age = '';
-    $year = '';
+} else {
+    $year = $min_year . '-' . $max_year;
+    $age = 'Age ' . ($age - ($max_year - $min_year)) . '-' . $age;
 }
 ?>
 
@@ -182,6 +189,7 @@ if ($year == '0') {
                 <!-- remove coordinates -->
                 <?= view('fact-date', ['cal_link' => 'true', 'fact' => $fact, 'record' => $record, 'time' => true]) ?>
                 <?php $location = view('fact-place', ['fact' => $fact, 'record' => $record]) ?>
+                <!-- <?= $location ?> -->
                 <?= preg_replace('/<div class="wt-fact-coordinates">[\s\S]+?<a/', '<div class="wt-fact-coordinates"><a', $location) ?>
             </div>
 
