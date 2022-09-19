@@ -183,6 +183,11 @@ table {
     display: inline;
 }
 
+/* hide coordinates */
+.wt-fact-coordinates:not(a svg) {
+    /* display: none; */
+}
+
 /* color map icon */
 .wt-icon-google-maps {
     color: rgb(var(--theme-google_maps-icon-color-rgb)) !important;
@@ -452,9 +457,15 @@ header .wt-site-title {
     width: 150px;
 }
 
-/* hide left carets */
-span.wt-icon-collapse,
-span.wt-icon-expand {
+/* hide accordian up/down carets */
+.accordion span.wt-icon-expand,
+.accordion span.wt-icon-collapse {
+    display: none;
+}
+
+/* show the appropriate up/down caret for source, based on if the source is collapsed or expanded */
+[data-bs-toggle=collapse][aria-expanded=false] > .wt-icon-collapse,
+[data-bs-toggle=collapse][aria-expanded=true] > .wt-icon-expand {
     display: none;
 }
 
@@ -561,7 +572,7 @@ span.wt-icon-expand {
     }
 
     #personal_facts > div > table > colgroup > col:nth-child(1) {
-        width: 70px;
+        width: 80px;
     }
 
     #individual-header-table {
