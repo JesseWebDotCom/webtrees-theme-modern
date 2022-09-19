@@ -35,6 +35,10 @@ a:hover,
     text-align: center;
 }
 
+.label {
+    font-weight: 500;
+}
+
 /* #endregion | COMMON */
 
 /* #region | FIXES */
