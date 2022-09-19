@@ -88,6 +88,16 @@ table {
     box-shadow: none;
 }
 
+/* remove table top borders */
+.table > :not(:first-child) {
+    border-top: 0px !important;
+}
+
+/* ensure table captions are at the top */
+[dir] .table {
+    caption-side: top;
+}
+
 /* #endregion | FIXES */
 
 /* #region | INDIVIDUAL */
@@ -142,6 +152,7 @@ table {
 .individual-header-start {
     /* background-color: rgb(var(--theme-primary-header-background-color-rgb));
     color: rgb(var(--theme-primary-header-font-color-rgb)); */
+    padding-top: 5px !important;
     border-bottom: none;
 }
 
@@ -510,6 +521,12 @@ header .wt-site-title {
 /* capitalize family navigator labels */
 .wt-family-navigator-label {
     text-transform: capitalize;
+}
+
+/* make family navigation section headers more visible */
+.wt-family-navigator-family-heading {
+    font-weight: 500;
+    font-size: larger;
 }
 
 
