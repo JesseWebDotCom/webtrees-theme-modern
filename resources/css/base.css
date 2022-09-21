@@ -115,7 +115,7 @@ table {
 /* shade to distinguish between relational and primary facts */
 .wt-historic-fact,
 .wt-relation-fact {
-    background-color: rgb(var(--theme-primary-header-font-color-rgb), .08);
+    background-color: rgb(var(--theme-font-color-rgb), .05);
 }
 
 /* icon */
