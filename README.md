@@ -30,10 +30,10 @@ While webtrees is fantastic (and I've tried almost all the other family tree opt
 
 ## Installation
 * Download and unzip the release package.
-* Place the jessewebdotcom-theme-modern folder inside modules_v4 folder of your webtrees installation.
+* Place the webtrees-theme-modern folder inside modules_v4 folder of your webtrees installation.
 
 ## Upgrading
-To upgrade an existing installation of the theme, simply replace the jessewebdotcom-theme-modern folder inside the modules_v4 folder with the new one.
+To upgrade an existing installation of the theme, simply replace the webtrees-theme-modern folder inside the modules_v4 folder with the new one.
 
 ## Configuration
 
