@@ -44,7 +44,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
     /**
      * @var string
      */
-    public const CUSTOM_VERSION = '1.0';
+    public const CUSTOM_VERSION = 'v2.1.7.2';
 
     /**
      * @var string
