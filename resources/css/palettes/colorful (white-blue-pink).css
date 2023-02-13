@@ -4,7 +4,7 @@
     --theme-card-header-background-color-rgb: var(--theme-seconddary-header-background-color-rgb);
     --theme-card-header-font-color-rgb: var(--theme-secondary-header-font-color-rgb);
     --theme-card-font-color-rgb: 255, 255, 255;
-    --theme-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --theme-font-family: "Calibre", sans-serif;
     --theme-font-color-rgb: 56, 56, 56;
     --theme-accent-background-color-rgb: 235, 105, 147;
     --theme-accent-font-color-rgb: 255, 255, 255;
