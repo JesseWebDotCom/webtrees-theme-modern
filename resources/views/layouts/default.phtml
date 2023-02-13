@@ -44,8 +44,12 @@ use Fisharebest\Webtrees\Http\RequestHandlers\TreePage; // Used for getting tree
             <?php endif ?>
         </title>
 
+        <meta name="theme-color" content="<?= e(app(ModuleThemeInterface::class)->background_color()) ?>">
+
         <!--iOS-->
         <link rel="apple-touch-icon" sizes="180x180" href="<?= e(route(AppleTouchIconPng::class)) ?>">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
         <!--Generic favicons-->
         <link rel="icon" sizes="32x32" href="<?= e(asset('favicon-32.png')) ?>">
         <link rel="icon" sizes="192x192" href="<?= e(asset('favicon-192.png')) ?>">
@@ -70,7 +74,7 @@ use Fisharebest\Webtrees\Http\RequestHandlers\TreePage; // Used for getting tree
         })->implode('') ?>
     </head>
 
-    <body class="wt-global wt-theme-<?= e(app(ModuleThemeInterface::class)->name()) ?> wt-route-<?= e(substr(strrchr($route = Validator::attributes($request)->route()->name ?? 'no-route', '\\'),1)) ?>">
+    <body class="wt-global wt-theme-<?= e(app(ModuleThemeInterface::class)->name()) ?> wt-route-<?= e(substr(strrchr($route = Validator::attributes($request)->route()->name ?? 'no-route', '\\'),1)) ?>">        
         <header class="wt-header-wrapper d-print-none">
             <nav class="jw-header">
 
@@ -190,6 +194,10 @@ use Fisharebest\Webtrees\Http\RequestHandlers\TreePage; // Used for getting tree
 
                 <?= $content ?>
 
+                <a target="_top" href="#" onclick="history.go(-1); return false;" class="float_bottom_left" target="_blank">
+                    <i class="fa fa-arrow-left fab-icon"></i>
+                </a>
+
                 <div class="progress-wrap">
                     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
                         <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
@@ -210,7 +218,9 @@ use Fisharebest\Webtrees\Http\RequestHandlers\TreePage; // Used for getting tree
             <?php preg_match('/<a href="(.*?)"/s', $collection->get('contact-links'), $matches) ?>     
             <ul class="nav justify-content-center border-top">
             <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-            <li class="nav-item"><a href="<?= $matches[1] ?>" class="nav-link px-2 text-muted"><?= I18N::translate('Support') ?></a></li>
+            <?php if ($matches) : ?>
+                <li class="nav-item"><a href="<?= $matches[1] ?>" class="nav-link px-2 text-muted"><?= I18N::translate('Support') ?></a></li>
+            <?php endif ?>
             <li class="nav-item">
 
             <a href="<?= e(route('module', ['module' => 'privacy-policy', 'action' => 'Page', 'tree' => $tree->name()])) ?>" class="nav-link px-2 text-muted">
@@ -331,7 +341,7 @@ use Fisharebest\Webtrees\Http\RequestHandlers\TreePage; // Used for getting tree
                 $(window).scroll(function() {    
                     var scroll = $(window).scrollTop();
                 
-                    if (scroll >= 49) {
+                    if (scroll >= 1) {
                         individual_header.removeClass('individual-header-start').addClass("individual-header-stop");
                     } else {
                         individual_header.removeClass('individual-header-stop').addClass("individual-header-start");
