@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Fisharebest\Webtrees\Auth;
 use Fisharebest\Webtrees\Elements\UnknownElement;
 use Fisharebest\Webtrees\Elements\XrefAssociate;
@@ -17,8 +19,8 @@ use Fisharebest\Webtrees\Registry;
 use Fisharebest\Webtrees\Services\ModuleService;
 use Fisharebest\Webtrees\Services\RelationshipService;
 
+use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\Age;
-
 
 /**
  * @var Fact         $fact
@@ -72,7 +74,9 @@ if ($tag === 'MARR') {
 }
 
 // get fact year and persons age
-$age = '';
+$MAX_ALIVE_AGE = (int) $tree->getPreference('MAX_ALIVE_AGE');
+$age = '0';
+$age_year = '';
 if (($record->tag() === Individual::RECORD_TYPE) && $record->getBirthDate()->isOK()) {
     $age = new Age($record->getBirthDate(), $fact->date());
     $age = I18N::number($age->ageYears());
@@ -82,51 +86,67 @@ $min_year = $fact->date()->minimumDate()->year();
 $max_year = $fact->date()->maximumDate()->year();
 
 $year = '';
+$age_year = (is_int($age_year) ? $age_year : '0');
+$min_year = (is_int($min_year) ? $min_year : '0');
+$max_year = (is_int($max_year) ? $max_year : '0');
 if ($min_year == '0' && $max_year == '0') {
     $age = '';
     $year = '';
 } elseif ($min_year == '0' && $max_year != '0') {
-    $age = 'Age ' . ($max_year - $age_year);
+    $age = ($max_year - $age_year);
     $year = $max_year;
 } elseif ($min_year != '0' && $max_year == '0') {
-    $age = 'Age ' . ($min_year - $age_year);
+    $age = ($min_year - $age_year);
     $year = $min_year;   
 } elseif ($min_year == $max_year) {
     $year = $max_year;
-    $age = 'Age ' . ($max_year - $age_year);
+    $age = ($max_year - $age_year);
 } else {
-    $year = $min_year . '-' . $max_year;
+
+    $year = $min_year;
     $lower_age = $age - ($max_year - $min_year);
     if ($lower_age < 0) {
         $lower_age = '0';
     }
 
-    $age = 'Age ' . $lower_age . ' - ' . $age;
+    $age = $lower_age;
 }
-?>
+if (is_int($age) && intval($age) > $MAX_ALIVE_AGE) {
+    $age = '?';
+}
+if (is_int($age)) {
+    $age = $age;
+}
 
-<?php if (($record->tag() === Individual::RECORD_TYPE)) : ?>
+if ($year !== '' && $age === '') {
+    $age = '?';
+}
+
+if ($tag === 'BIRT') {
+    $age = '(AGE)';
+}
+
+?>
 <tr class="<?= implode(' ', $styles) ?>">
+    <th scope="row">
+        <div class=fact_year><?= $year ?></div>        
+        <div class=fact_age><?= $age ?></div>
+    </th>
+
     <td>
         <div>
-    <div class=fact_year><?= $year ?></div>
-    <div class=fact_age><?= $age ?></div>
-</div>
-</td>
-<?php endif ?>
-    <td>
-        <div style="display: flex; align-items: center;">
-            <?php if ($tree->getPreference('SHOW_FACT_ICONS')) : ?>
-                <div style="padding-right:3px" class="wt-fact-icon wt-fact-icon-<?= e($tag) ?>" title="<?= strip_tags($label) ?>"></div>
-            <?php endif ?>        
-            <div class="wt-fact-label"><?= $label?></div>
-        </div>
-        <div style="padding-bottom:5px"></div>     
+        <?php if ($tree->getPreference('SHOW_FACT_ICONS')) : ?>
+                    <div style="display : inline-flex;" class="wt-fact-icon wt-fact-icon-<?= e($tag) ?>" title="<?= strip_tags($label) ?>"></div>
+                <?php endif ?>            
+        <div class="wt-fact-label ut" style="display : inline-flex;"><?= $label?></div><br>
         <?php if ($id !== 'histo' && $id !== 'asso' && $fact->canEdit() && !in_array($tag, ['HUSB', 'WIFE', 'CHIL', 'FAMC', 'FAMS'], true)) : ?>
             <?= view('fact-edit-links', ['fact' => $fact, 'url' => $record->url()]) ?>
-        <?php endif ?>   
-    
-        <?php if ($fact->target() instanceof Media) : ?>
+        <?php endif ?>          
+        <?= view('fact-date', ['cal_link' => 'true', 'fact' => $fact, 'record' => $record, 'time' => true]) ?>
+        <!-- remove coordinates -->                        
+        <?php $location = view('fact-place', ['fact' => $fact, 'record' => $record]) ?>
+        <?= preg_replace('/<div class="wt-fact-coordinates">[\s\S]+?<a/', '<div class="wt-fact-coordinates"><a', $location) ?>    
+    <?php if ($fact->target() instanceof Media) : ?>
             <div class="d-flex flex-wrap">
                 <?php foreach ($fact->target()->mediaFiles() as $media_file) : ?>
                     <div class="me-1 mb-1">
@@ -142,51 +162,51 @@ if ($min_year == '0' && $max_year == '0') {
             <?php endforeach ?>
         <?php else : ?>
             <div class="wt-fact-main-attributes">
-                <?php if ($parent !== $record) : ?>
-                    <div class="wt-fact-record">
-                        <?php if ($parent instanceof Family) : ?>
-                            <?php foreach ($parent->spouses()->filter(static fn ($individual): bool => $individual !== $record) as $spouse) : ?>
-                                <?php if ($spouse->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
-                                    <div class="wt-chart-box-thumbnail float-start me-1">
-                                        <?= $spouse->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
-                                    </div>
-                                <?php endif ?>   
-                                <a href="<?= e($spouse->url()) ?>"><?= $spouse->fullName() ?></a> —
-                            <?php endforeach ?>
-                            <a href="<?= e($parent->url()) ?>"><?= I18N::translate('View this family') ?></a>
-                        <?php elseif ($parent instanceof Individual) : ?>
-                            <?php if ($parent->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
+            <?php if ($parent !== $record) : ?>
+                <div class="wt-fact-record">
+                    <?php if ($parent instanceof Family) : ?>
+                        <?php foreach ($parent->spouses()->filter(static fn ($individual): bool => $individual !== $record) as $spouse) : ?>
+                            <?php if ($spouse->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
                                 <div class="wt-chart-box-thumbnail float-start me-1">
-                                    <?= $parent->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
+                                    <?= $spouse->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
                                 </div>
-                            <?php endif ?>    
-                                                      
-                            <a href="<?= e($parent->url()) ?>"><?= $parent->fullName() ?></a>
-                        <?php endif ?>
-                    </div>
-                <?php endif ?>
-
-                <div class="wt-fact-value">
-                    <?= $element->value($value, $tree) ?>
-
-                    <?php if ($element instanceof XrefAssociate && $fact->target() instanceof Individual) : ?>
-                        <?php
-                        $module = app(ModuleService::class)->findByComponent(ModuleChartInterface::class, $tree, Auth::user())
-                            ->first(static fn (ModuleInterface $module):bool => $module instanceof RelationshipsChartModule)
-                        ?>
-                        <?php if ($module instanceof RelationshipsChartModule && $record instanceof Individual) : ?>  
-                            <!-- I added this if section below -->                          
-                            <?php if ($module->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
-                                <div class="wt-chart-box-thumbnail float-start me-1">
-                                    <?= $module->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
-                                </div>
-                            <?php endif ?>                           
-                            — <a href="<?= $module->chartUrl($fact->target(), ['xref2' => $record->xref()]) ?>" rel="nofollow">
-                                <?= app(RelationshipService::class)->getCloseRelationshipName($fact->target(), $record) ?>
-                            </a>
-                        <?php endif ?>
+                            <?php endif ?>   
+                            <a href="<?= e($spouse->url()) ?>"><?= $spouse->fullName() ?></a> —
+                        <?php endforeach ?>
+                        <a href="<?= e($parent->url()) ?>"><?= I18N::translate('View this family') ?></a>
+                    <?php elseif ($parent instanceof Individual) : ?>
+                        <?php if ($parent->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
+                            <div class="wt-chart-box-thumbnail float-start me-1">
+                                <?= $parent->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
+                            </div>
+                        <?php endif ?>    
+                                                
+                        <a href="<?= e($parent->url()) ?>"><?= $parent->fullName() ?></a>
                     <?php endif ?>
                 </div>
+            <?php endif ?>
+
+            <div class="wt-fact-value">
+                <?= $element->value($value, $tree) ?>
+
+                <?php if ($element instanceof XrefAssociate && $fact->target() instanceof Individual) : ?>
+                    <?php
+                    $module = app(ModuleService::class)->findByComponent(ModuleChartInterface::class, $tree, Auth::user())
+                        ->first(static fn (ModuleInterface $module):bool => $module instanceof RelationshipsChartModule)
+                    ?>
+                    <?php if ($module instanceof RelationshipsChartModule && $record instanceof Individual) : ?>  
+                        <!-- I added this if section below -->                          
+                        <?php if ($module->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
+                            <div class="wt-chart-box-thumbnail float-start me-1">
+                                <?= $module->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
+                            </div>
+                        <?php endif ?>                           
+                        — <a href="<?= $module->chartUrl($fact->target(), ['xref2' => $record->xref()]) ?>" rel="nofollow">
+                            <?= app(RelationshipService::class)->getCloseRelationshipName($fact->target(), $record) ?>
+                        </a>
+                    <?php endif ?>
+                <?php endif ?>
+            </div>
 
                 <!-- Type of this fact/event (allow user-translations) -->
                 <?php if ($type !== '' && $tag !== 'EVEN' && $tag !== 'FACT') : ?>
@@ -194,12 +214,6 @@ if ($min_year == '0' && $max_year == '0') {
                         <?= Registry::elementFactory()->make($fact->tag() . ':TYPE')->labelValue(I18N::translate($type), $tree) ?>
                     </div>
                 <?php endif ?>
-
-                <!-- remove coordinates -->
-                <?= view('fact-date', ['cal_link' => 'true', 'fact' => $fact, 'record' => $record, 'time' => true]) ?>
-                <?php $location = view('fact-place', ['fact' => $fact, 'record' => $record]) ?>
-                <!-- <?= $location ?> -->
-                <?= preg_replace('/<div class="wt-fact-coordinates">[\s\S]+?<a/', '<div class="wt-fact-coordinates"><a', $location) ?>
             </div>
 
             <div class="wt-fact-other-attributes mt-2">
@@ -218,6 +232,7 @@ if ($min_year == '0' && $max_year == '0') {
             <?= view('fact-sources', ['fact' => $fact]) ?>
             <?= view('fact-notes', ['fact' => $fact]) ?>
             <?= view('fact-media', ['fact' => $fact]) ?>
-        <?php endif ?>
+        <?php endif ?>  
+            </div>      
     </td>
 </tr>
