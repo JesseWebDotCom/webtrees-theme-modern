@@ -32,7 +32,7 @@ $secondaryNavigation = $secondaryNavigation[1] ?? '';
 <?= $view ?>
 
 <nav class="navbar fixed-top px-3 py-1" id=navbarMobile>
-  <a class="navbar" href="#" id=navbarMobileTitle>
+  <a class="navbar" href="<?= e($tree_url) ?>" id=navbarMobileTitle>
     <?= $siteTitle ?>
   </a>
 
