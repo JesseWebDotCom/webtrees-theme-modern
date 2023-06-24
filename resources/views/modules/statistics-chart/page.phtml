@@ -1,0 +1,7 @@
+<?php
+
+$view = view('::modules/statistics-chart/page', get_defined_vars());
+
+$view = preg_replace('/nav-tabs/', 'nav-pills', $view); // Change tabs to pills
+
+echo $view;

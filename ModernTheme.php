@@ -112,6 +112,8 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         View::registerCustomView('::layouts/default', $this->name() . '::layouts/default');
         View::registerCustomView('::individual-page', $this->name() . '::individual-page');
         View::registerCustomView('::individual-page-tabs', $this->name() . '::individual-page-tabs');
+
+        View::registerCustomView('::modules/statistics-chart/page', $this->name() . '::modules/statistics-chart/page');
     }
 
     /**
