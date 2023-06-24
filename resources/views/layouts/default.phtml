@@ -1,361 +1,59 @@
 <?php
-
-use Fisharebest\Webtrees\FlashMessages;
-use Fisharebest\Webtrees\Http\RequestHandlers\AppleTouchIconPng;
-use Fisharebest\Webtrees\Http\RequestHandlers\BrowserconfigXml;
-use Fisharebest\Webtrees\Http\RequestHandlers\SearchQuickAction;
-use Fisharebest\Webtrees\Http\RequestHandlers\WebmanifestJson;
-use Fisharebest\Webtrees\I18N;
-use Fisharebest\Webtrees\Module\ModuleFooterInterface;
-use Fisharebest\Webtrees\Module\ModuleGlobalInterface;
-use Fisharebest\Webtrees\Module\ModuleThemeInterface;
-use Fisharebest\Webtrees\Services\ModuleService;
+// Used for getting tree URL
 use Fisharebest\Webtrees\Tree;
-use Fisharebest\Webtrees\Validator;
-use Fisharebest\Webtrees\View;
-use Fisharebest\Webtrees\Webtrees;
-use Psr\Http\Message\ServerRequestInterface;
-
-use Fisharebest\Webtrees\Http\RequestHandlers\TreePage; // Used for getting tree URL
+use Fisharebest\Webtrees\Http\RequestHandlers\TreePage;
 
 /**
- * @var string                 $content
- * @var ServerRequestInterface $request
- * @var string                 $title
  * @var Tree                   $tree
  */
 
+$tree_url = e(route(TreePage::class, ['tree' => $tree->name()]));
+
+$view = view('::layouts/default', get_defined_vars());
+
+// Extract site title
+preg_match('/<h1 class="col wt-site-title">(.*?)<\/h1>/s', $view, $siteTitle);
+$siteTitle = $siteTitle[1] ?? '';
+
+// Extract search box
+preg_match('/<form[^>]+class="[^"]*wt-header-search-form[^"]*"[^>]*>(.*?)<\/form>/s', $view, $searchBox);
+$searchBox = $searchBox[0] ?? '';
+
+// Extract primary navigation menu
+preg_match('/<nav class="col wt-primary-navigation">.*?<ul class="nav wt-genealogy-menu">(.*?)<\/ul>/s', $view, $primaryNavigation);
+$primaryNavigation = $primaryNavigation[1] ?? '';
+
+// Extract secondary navigation menu
+preg_match('/<div class="col wt-secondary-navigation">\s*<ul class="nav wt-user-menu">(.*?)<\/ul>\s*<\/div>/s', $view, $secondaryNavigation);
+$secondaryNavigation = $secondaryNavigation[1] ?? '';
+
 ?>
 
-<!DOCTYPE html>
-<html dir="<?= I18N::locale()->direction() ?>" lang="<?= I18N::locale()->languageTag() ?>">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="csrf" content="<?= e(csrf_token()) ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="<?= e($meta_robots ?? 'noindex') ?>">
-        <meta name="generator" content="<?= e(Webtrees::NAME) ?> <?= e(Webtrees::VERSION) ?>">
-        <meta name="description" content="<?= $meta_description ?? '' ?>">
+<?= $view ?>
 
-        <title>
-            <?= strip_tags($title) ?>
-            <?php if ($tree !== null && $tree->getPreference('META_TITLE') !== '') : ?>
-                – <?= e($tree->getPreference('META_TITLE')) ?>
-            <?php endif ?>
-        </title>
+<nav class="navbar fixed-top px-3 py-1" id=navbarMobile>
+  <a class="navbar" href="#" id=navbarMobileTitle>
+    <?= $siteTitle ?>
+  </a>
 
-        <meta name="theme-color" content="<?= e(app(ModuleThemeInterface::class)->background_color()) ?>">
+  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-        <!--iOS-->
-        <link rel="apple-touch-icon" sizes="180x180" href="<?= e(route(AppleTouchIconPng::class)) ?>">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        
-        <!--Generic favicons-->
-        <link rel="icon" sizes="32x32" href="<?= e(asset('favicon-32.png')) ?>">
-        <link rel="icon" sizes="192x192" href="<?= e(asset('favicon-192.png')) ?>">
-        <!--IE11/Edge-->
-        <meta name="msapplication-config" content="<?= e(route(BrowserconfigXml::class)) ?>">
+  <div class="collapse navbar-collapse" id="navbarContent">
+    <form class="form-inline my-2 my-lg-0">
+      <?= $searchBox ?>
+    </form>    
+    <span style="font-weight: 700; font-size: 16px; padding-top: 10px">MAIN MENU</span>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <?= $primaryNavigation ?>
+    </ul>
+    <hr>
+    <span style="font-weight: 700; font-size: 16px">SETTINGS</span>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">      
+      <?= $secondaryNavigation ?>
+    </ul>
+  </div>
+</nav>
 
-        <link rel="manifest" href="<?= e(route(WebmanifestJson::class)) ?>" crossorigin="use-credentials">
-
-        <link rel="stylesheet" href="<?= e(asset('css/vendor.min.css')) ?>">
-        <?php // combine all CSS files so they can share variables
-            echo('<style type="text/css">');
-            foreach (app(ModuleThemeInterface::class)->stylesheets() as $stylesheet) {
-                readfile(e($stylesheet));
-            } 
-            echo('</style>');
-        ?>
-
-        <?= View::stack('styles') ?>
-
-        <?= app(ModuleService::class)->findByInterface(ModuleGlobalInterface::class)->map(static function (ModuleGlobalInterface $module): string {
-            return $module->headContent();
-        })->implode('') ?>
-    </head>
-
-    <body class="wt-global wt-theme-<?= e(app(ModuleThemeInterface::class)->name()) ?> wt-route-<?= e(substr(strrchr($route = Validator::attributes($request)->route()->name ?? 'no-route', '\\'),1)) ?>">        
-        <header class="wt-header-wrapper d-print-none">
-            <nav class="jw-header">
-
-                <div id="secondary-header">
-                    <div class="container-fluid wt-header-container">
-                        <div class="row wt-header-content justify-content-center">
-                            <div class="wt-accessibility-links position-fixed">
-                                <a class="visually-hidden visually-hidden-focusable btn btn-info btn-sm" href="#content">
-                                    <?= /* I18N: Skip over the headers and menus, to the main content of the page */
-                                    I18N::translate('Skip to content') ?>
-                                </a>
-                            </div>
-
-                            <nav class="col-md-auto wt-secondary-navigation">
-                                <ul class="nav wt-user-menu">
-                                    <?php foreach (app(ModuleThemeInterface::class)->userMenu($tree) as $menu) : ?>
-                                        <?= view('components/menu-item', ['menu' => $menu]) ?>
-                                    <?php endforeach ?>
-                                </ul>
-                            </nav>
-
-                            <?php if ($tree !== null) : ?>
-                                <div class="col-md-auto wt-header-search">
-                                    <form method="post"
-                                            action="<?= e(route(SearchQuickAction::class, ['tree' => $tree->name()])) ?>"
-                                            class="wt-header-search-form" role="search">
-                                        <?= csrf_field() ?>
-                                        <div class="input-group">
-                                            <label class="visually-hidden" for="quick-search"><?= I18N::translate('Search') ?></label>
-                                            <input type="search" class="form-control wt-header-search-field" id="quick-search"
-                                                    name="query" size="15" placeholder="<?= I18N::translate('Search') ?>">
-                                            <button type="submit" class="btn btn-primary wt-header-search-button" aria-label="<?= I18N::translate('Search') ?>">
-                                                <?= view('icons/search') ?>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            <?php endif ?>
-                        </div><!-- /.row.wt-header-content -->
-                    </div><!-- /.container-lg.wt-header-container -->
-                </div><!-- /#secondary-header -->
-                <div id="primary-header" class="navigation-wrap sticky-top">
-                    <div class="container-fluid wt-header-container start-header start-style">
-                        <div class="row wt-header-content">
-                            <div class="col-auto ms-5" style="margin-top: auto;margin-bottom: auto;">
-                                <a href="<?= e(route(TreePage::class, ['tree' => $tree->name()])) ?>">
-                                    <div class="row">
-                                        <div class="col-md-auto wt-site-logo"></div>
-                                        <?php if ($tree !== null) : ?>
-                                            <div class="col-md-auto wt-site-title p-0"><?= e($tree->title()) ?></div>
-                                        <?php endif ?> 
-                                    </div>
-                                </a>
-                            </div>
-
-                            <?php if ($tree !== null) : ?>
-                                <nav class="col wt-primary-navigation">
-                                    <ul class="nav wt-genealogy-menu justify-content-end me-5">
-                                        <?php foreach (app(ModuleThemeInterface::class)->genealogyMenu($tree) as $menu) : ?>
-                                            <?= view('components/menu-item', ['menu' => $menu]) ?>
-                                        <?php endforeach ?>
-                                    </ul>
-                                </nav>
-                            <?php endif ?>
-                        </div><!-- /.row.wt-header-content -->
-                    </div><!-- /.container-lg.wt-header-container -->
-                </div><!-- /#primary-header -->
-            </nav>
-            <nav class="jw-header-mobile navbar fixed-top p-2" style="height: 55px">
-                    <div class="container-fluid">
-                    <a class="navbar-brand wt-site-logo" href="/"><?= e($tree->title()) ?></a>
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">Menu</button>
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                        <div class="offcanvas-header">
-                        <div class="col-md-auto wt-site-logo"></div><h5 class="offcanvas-title" id="offcanvasNavbarLabel"><?= e($tree->title()) ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1">
-                            <li class="nav-item menu-home">            
-                            <a class="nav-link" aria-current="page" href="/">Home</a>
-                            </li>
-
-                            <?php if ($tree !== null) : ?>
-                                <?php foreach (app(ModuleThemeInterface::class)->genealogyMenu($tree) as $menu) : ?>
-                                    <?= view('components/menu-item', ['menu' => $menu]) ?>
-                                <?php endforeach ?>
-                            <?php endif ?>
-
-                            <?php foreach (app(ModuleThemeInterface::class)->userMenu($tree) as $menu) : ?>
-                                <?= view('components/menu-item', ['menu' => $menu]) ?>
-                            <?php endforeach ?>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?= e(route('module', ['module' => 'privacy-policy', 'action' => 'Page', 'tree' => $tree->name()])) ?>">
-                                    <?= I18N::translate('Privacy policy') ?>
-                                </a>   
-                            </li>
-                        </ul>
-                        </div>
-                    </div>
-                    </div>                      
-                </nav>            
-        </header><!-- /.wt-header-wrapper -->
-
-        <main id="content" class="wt-main-wrapper">
-            <div class="container-fluid wt-main-container">
-                <div class="flash-messages">
-                    <?php foreach (FlashMessages::getMessages() as $message) : ?>
-                        <div class="alert alert-<?= e($message->status) ?> alert-dismissible" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?= I18N::translate('close') ?>">
-                            </button>
-                            <?= $message->text ?>
-                        </div>
-                    <?php endforeach ?>
-                </div>
-
-                <?= $content ?>
-
-                <a target="_top" href="#" onclick="history.go(-1); return false;" class="float_bottom_left" target="_blank">
-                    <i class="fa fa-arrow-left fab-icon"></i>
-                </a>
-
-                <div class="progress-wrap">
-                    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-                        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-                    </svg>
-                </div>                
-            </div>
-        </main>
-
-        <?php 
-        $request = app(ServerRequestInterface::class);
-        $collection = app(ModuleService::class)->findByInterface(ModuleFooterInterface::class)->map(static function (ModuleFooterInterface $module) use ($request): string {
-            return $module->getFooter($request);
-        });
-
-        ?>
-
-        <footer class=""> 
-            <?php preg_match('/<a href="(.*?)"/s', $collection->get('contact-links'), $matches) ?>     
-            <ul class="nav justify-content-center border-top">
-            <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-            <?php if ($matches) : ?>
-                <li class="nav-item"><a href="<?= $matches[1] ?>" class="nav-link px-2 text-muted"><?= I18N::translate('Support') ?></a></li>
-            <?php endif ?>
-            <li class="nav-item">
-
-            <a href="<?= e(route('module', ['module' => 'privacy-policy', 'action' => 'Page', 'tree' => $tree->name()])) ?>" class="nav-link px-2 text-muted">
-                                            <?= I18N::translate('Privacy policy') ?>
-                                        </a>   
-                                        </li>
-            </ul>
-            <?= $collection->get(app(ModuleThemeInterface::class)->name()) ?>            
-        </footer>
-
-        <script src="<?= e(asset('js/vendor.min.js')) ?>"></script>
-        <script src="<?= e(asset('js/webtrees.min.js')) ?>"></script>
-
-      
-
-        <script>
-            // Trigger an event when we click on an (any) image
-            $('body').on('click', 'a.gallery', function () {
-                // Enable colorbox for images
-                $("a[type^=image].gallery").colorbox({
-                    // Don't scroll window with document
-                    fixed: true,
-                    width: "85%",
-                    height: "85%",
-                    current: "",
-                    previous: '<i class="fas fa-arrow-left wt-icon-flip-rtl" title="<?= I18N::translate('previous') ?>"></i>',
-                    next: '<i class="fas fa-arrow-right wt-icon-flip-rtl" title="<?= I18N::translate('next') ?>"></i>',
-                    slideshowStart: '<i class="fas fa-play" title="<?= I18N::translate('Play') ?>"></i>',
-                    slideshowStop: '<i class="fas fa-stop" title="<?= I18N::translate('Stop') ?>"></i>',
-                    close: '<i class="fas fa-times" title="<?= I18N::translate('close') ?>"></i>',
-                    title: function () {
-                        return this.dataset.title;
-                    },
-                    photo: true,
-                    rel: "gallery", // Turn all images on the page into a slideshow
-                    slideshow: true,
-                    slideshowAuto: false,
-                    // Add wheelzoom to the displayed image
-                    onComplete: function () {
-                        // Disable click on image triggering next image
-                        // https://github.com/jackmoore/colorbox/issues/668
-                        $(".cboxPhoto").unbind("click");
-                        // Enable wheel/pinch zooming
-                        $('.cboxPhoto').wrap("<pinch-zoom></pinch-zoom>");
-                    }
-                });
-            });
-        </script>
-
-        <script>
-            //shrink header
-            (function($) { "use strict";
-
-            $(function() {
-                var header = $(".start-style");
-                $(window).scroll(function() {    
-                    var scroll = $(window).scrollTop();
-                
-                    if (scroll >= 50) {
-                        header.removeClass('start-style').addClass("scroll-on");
-                    } else {
-                        header.removeClass("scroll-on").addClass('start-style');
-                    }
-                });
-            });		
-                
-            })(jQuery); 
-        </script>          
-
-        <script>
-            //Scroll back to top
-
-            (function($) { "use strict";
-
-            $(document).ready(function(){"use strict";
-                
-                var progressPath = document.querySelector('.progress-wrap path');
-                var pathLength = progressPath.getTotalLength();
-                progressPath.style.transition = progressPath.style.WebkitTransition = 'none';
-                progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
-                progressPath.style.strokeDashoffset = pathLength;
-                progressPath.getBoundingClientRect();
-                progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';		
-                var updateProgress = function () {
-                    var scroll = $(window).scrollTop();
-                    var height = $(document).height() - $(window).height();
-                    var progress = pathLength - (scroll * pathLength / height);
-                    progressPath.style.strokeDashoffset = progress;
-                }
-                updateProgress();
-                $(window).scroll(updateProgress);	
-                var offset = 50;
-                var duration = 550;
-                jQuery(window).on('scroll', function() {
-                    if (jQuery(this).scrollTop() > offset) {
-                        jQuery('.progress-wrap').addClass('active-progress');
-                    } else {
-                        jQuery('.progress-wrap').removeClass('active-progress');
-                    }
-                });				
-                jQuery('.progress-wrap').on('click', function(event) {
-                    event.preventDefault();
-                    jQuery('html, body').animate({scrollTop: 0}, duration);
-                    return false;
-                })
-                
-                
-            });
-
-            })(jQuery); 
-        </script> 
-
-        <script>
-            (function($) { "use strict";
-
-            $(function() {
-                var individual_header = $(".individual-header-start");
-                $(window).scroll(function() {    
-                    var scroll = $(window).scrollTop();
-                
-                    if (scroll >= 1) {
-                        individual_header.removeClass('individual-header-start').addClass("individual-header-stop");
-                    } else {
-                        individual_header.removeClass('individual-header-stop').addClass("individual-header-start");
-                    }
-                });
-            });		
-                
-            })(jQuery); 
-        </script>          
-
-        <?= View::stack('javascript') ?>
-
-        <?= app(ModuleService::class)->findByInterface(ModuleGlobalInterface::class)->map(static function (ModuleGlobalInterface $module): string {
-            return $module->bodyContent();
-        })->implode('') ?>
-    </body>
-</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
