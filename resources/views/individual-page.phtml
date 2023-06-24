@@ -1,139 +1,17 @@
 <?php
+$view = view('::individual-page', get_defined_vars());
 
-use Fisharebest\Webtrees\Auth;
-use Fisharebest\Webtrees\Fact;
-use Fisharebest\Webtrees\I18N;
-use Fisharebest\Webtrees\Individual;
-use Fisharebest\Webtrees\Media;
-use Fisharebest\Webtrees\Module\ModuleSidebarInterface;
-use Fisharebest\Webtrees\Module\ModuleTabInterface;
-use Fisharebest\Webtrees\Tree;
-use Fisharebest\Webtrees\Http\RequestHandlers\UserListPage;
-use Fisharebest\Webtrees\User;
-use Illuminate\Support\Collection;
+// Extract the title
+$pattern = '/<h2 class="wt-page-title.*?<\/h2>/s';
+preg_match($pattern, $view, $matches);
+$pageTitleDiv = $matches[0] ?? '';
 
-// use JessewebDotCom\Webtrees\Module\ModernTheme\ModernTheme;
-// $module = app(ModernTheme::class);
-use Fisharebest\Webtrees\Module\ModuleThemeInterface;
+// remove comma, move dates/age to next line
+$modifiedPageTitleDiv = str_replace(',', '<br>', $pageTitleDiv);
 
-$individual_about = app(ModuleThemeInterface::class)->individual_about($record);
+// update view
+$view = str_replace($pageTitleDiv, $modifiedPageTitleDiv, $view);
 
-/**
- * @var string                                 $age
- * @var bool                                   $can_upload_media
- * @var Collection<int,Fact>                   $clipboard_facts
- * @var Collection<int,Media>                  $individual_media
- * @var Individual                             $record
- * @var Collection<int,string>                 $shares
- * @var Collection<int,ModuleSidebarInterface> $sidebars
- * @var Collection<int,ModuleTabInterface>     $tabs
- * @var Tree                                   $tree
- * @var Collection<int,User>                   $users
- */
-?>
-
-<?= view('individual-page-pending', ['record' => $record]) ?>
-<div>
-    <div class="individual-header individual-header-start" style="display: table">
-        <table id=individual-header-table>
-            <thead>
-                <tr>
-                    <td rowspan="3" width=100px valign=top>
-                        <?= view('individual-page-images', ['can_upload_media' => $can_upload_media, 'individual_media' => $individual_media, 'record' => $record, 'tree' => $tree]) ?>
-                    </td>
-                    <td colspan="2">
-                        <h2 class="wt-page-title mx-auto my-0">
-                            <?= $record->fullName() ?>
-                        </h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <h2 class="wt-page-title mx-auto my-0">
-                            <?php if ($record->getBirthDate()->isOK() || $record->getDeathDate()->isOK()) : ?>
-                                <?php if ($record->sex() === 'F') : ?>
-                                    <span class="wt-icon-sex wt-icon-sex-f"><i class="fas fa-venus fa-fw" aria-hidden="true"></i></span>
-                                <?php elseif ($record->sex() === 'M') : ?>
-                                    <span class="wt-icon-sex wt-icon-sex-m"><i class="fas fa-mars fa-fw" aria-hidden="true"></i></span>
-                                <?php elseif ($record->sex() === 'X') : ?>
-                                    <span class="wt-icon-sex wt-icon-sex-x"><i class="fas fa-transgender fa-fw" aria-hidden="true"></i></span>
-                                <?php elseif ($record->sex() === 'U') : ?>
-                                    <span class="wt-icon-sex wt-icon-sex-u"><i class="fas fa-genderless fa-fw" aria-hidden="true"></i></span>
-                                <?php endif ?>                         
-                                <?= $record->lifespan() ?>
-                            <?php endif ?></?>
-                            <?= $age ?>
-                        </h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <ul id="tree-link" class="horizontal-list">                                                       
-                            <li class="nav-item dropdown menu-chart" style="padding:0">
-                                <a id=tree-link href="../../hourglass-3-1/<?= $record->xref() ?>" class="nav-link" role="button">&nbsp;View Tree</a>                              
-                            </li>
-                        </ul>                          
-                    </td>
-                    <td align=right valign=middle style="padding-right:10px">
-                        <?php if ($record->canEdit()) : ?>
-                            <?php $edit_button = view('individual-page-menu', ['can_upload_media' => $can_upload_media, 'clipboard_facts' => $clipboard_facts, 'record' => $record, 'shares' => $shares]) ?>
-                            <?= preg_replace('/aria-expanded="false"[\s\S]+?<\/button>/', 'aria-expanded="false"><i class="fa fa-pencil" aria-hidden="true"></i></button>', $edit_button) ?>
-                        <?php endif ?>                       
-                    </td>
-                </tr>
-            </thead>
-        </table>
-        <?php
-            $tabs = view('individual-page-tabs', ['record' => $record, 'tabs' => $tabs]);
-
-            // rename facs and events
-            $tabs = str_replace('Facts and events', 'Facts', $tabs);
-            $tabs = str_replace('Add a fact', 'Add', $tabs);
-
-            // autogenerated brief history
-                
-            if (strlen( $individual_about ) !== 0) {
-
-                $individual_about = $individual_about . '<p style="font-size:smaller; font-style: italic">This brief history was auto-generated from information on the Facts tab. To change it, edit the data on the Facts tab.</font>';
-
-                // remove default tab
-                $tabs = str_replace('active show', '', $tabs);
-                // add about tab content            
-                $individual_about  = '<div id="personal_about" class="tab-pane fade wt-ajax-load active show" role="tabpanel"><p>' . $individual_about . '</p></div><div id="personal_facts"';                
-                $tabs = str_replace('class="tab-content">', 'class="tab-content">' . $individual_about, $tabs);
-                // add about tab
-                $new_tab = '<li class="nav-item" role="presentation"><a class="nav-link active" data-bs-toggle="tab" role="tab" href="#personal_about" aria-selected="true">About</a></li>';
-                $tabs = str_replace('role="tablist">', 'role="tablist">' . $new_tab, $tabs);                    
-            }
-                        
-            // move tabs header
-            $tabs_header = '';
-            
-            if (preg_match("'<ul class=\"nav nav-tabs(.*?)</ul>'si", $tabs, $match) === 1) {
-                $tabs_header = '<ul class="nav nav-tabs' . $match[1] . '</ul>';
-                $tabs = str_replace($tabs_header, '', $tabs); 
-
-                // have tab header links scroll to top of page
-                $tabs_header = str_replace('role="tab"', 'role="tab" onclick="document.body.scrollTop = 0;document.documentElement.scrollTop = 0;"', $tabs_header); 
-                
-                // reduce space above sections to be closer to the header
-                $tabs = str_replace('py-4', 'py-1', $tabs); 
-            }
-        ?>
-        <?= $tabs_header ?>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <?= $tabs ?>
-        </div>
-
-        <div class="col-sm-4">
-            <?= view('individual-page-sidebars', ['record' => $record, 'sidebars' => $sidebars]) ?>
-        </div>
-    </div>
-
-
-<?= view('modals/ajax') ?>
-<?= view('modals/shares', ['shares' => $shares, 'title' => I18N::translate('Share') . ' — ' . $record->fullName()]) ?>
-
+// Display the modified view
+echo $view;
+?> 
