@@ -11,6 +11,18 @@ Contains changes that should be applied to all palettes, including:
 
 /* #region | MISC */
 
+/* title/ subtitle formatting */
+.wt-page-title {
+    font-size: 1.5rem;
+    text-align: center;
+    color: rgb(var(--bs-body-color-rgb), .5);
+}
+
+.wt-page-title span.NAME {
+    font-size: 2rem;
+    color: rgb(var(--bs-body-color-rgb), 1);
+}
+
 
 /* - always show scrollbars */
 ::-webkit-scrollbar {
@@ -38,83 +50,6 @@ Contains changes that should be applied to all palettes, including:
 
 
 /* #region | HEADER */
-.wt-header-wrapper .dropdown-item.active {
-    color: inherit;
-    font-weight: bold;
-}
-
-.wt-header-container {
-    margin-top: 0.5rem;
-}
-
-.wt-site-logo {
-    display: none;
-}
-
-.wt-site-title {
-    order: 1;
-    flex: 1 1 auto;
-    width: auto;
-    font-size: 1.5rem;
-}
-
-.wt-header-search {
-    order: 3;
-    flex: 0 0 15rem;
-}
-
-.wt-secondary-navigation {
-    order: 2;
-    flex: 0 0 auto;
-    width: auto;
-    white-space: nowrap;
-}
-
-.wt-user-menu {
-    flex-wrap: nowrap;
-}
-
-.wt-user-menu .nav-link {
-    display: inline-block;
-    padding: 0.5rem;
-}
-
-.wt-user-menu .nav-item + .nav-item::before {
-    content: "|";
-}
-
-.wt-user-menu .dropdown-toggle:after {
-    display: none;
-}
-
-.wt-user-menu .dropdown-item {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-.wt-primary-navigation {
-    order: 3;
-    flex: 1 0 auto;
-}
-
-.wt-genealogy-menu {
-    display: flex; flex-wrap: wrap;
-}
-
-.wt-genealogy-menu .nav-item {
-    padding: 0 0.75rem;
-}
-
-.wt-genealogy-menu .dropdown-item:first-child {
-    font-weight: bold;
-    text-align: center;
-    border-bottom: solid thin #ddd;
-}
-
-/* reduce spacing above */
-.wt-primary-navigation{
-    margin-top:-10px !important;
-}
 
 /* Desktop & Mobile Navbars */
 .wt-header-wrapper {

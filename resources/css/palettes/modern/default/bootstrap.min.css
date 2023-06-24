@@ -1,1 +1,1 @@
-a{text-decoration:none;color:var(--bs-body-color);}.card,.accordion{box-shadow:0 3px 6px 0 rgba(var(--bs-body-color-rgb),.1),0 1px 3px 0 rgba(var(--bs-body-color-rgb),.08);}[dir] .card-header{background:none!important;border-bottom:none!important;text-transform:uppercase;}
+a{text-decoration:none;color:var(--bs-body-color);}.card,.accordion{border:0!important;box-shadow:0 8px 30px rgba(0,0,0,.05)}#individual-names{box-shadow:unset;}[dir] .card-header{background:none!important;border-bottom:none!important;text-transform:uppercase;}

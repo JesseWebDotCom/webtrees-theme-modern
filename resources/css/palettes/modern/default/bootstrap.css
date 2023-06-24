@@ -12,7 +12,13 @@ a {
 
 /* dropshadow */
 .card, .accordion {
-    box-shadow: 0 3px 6px 0 rgba(var(--bs-body-color-rgb),0.1),0 1px 3px 0 rgba(var(--bs-body-color-rgb),0.08);
+    border: 0 !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,.05);
+    /* box-shadow: 0 3px 6px 0 rgba(var(--bs-body-color-rgb),0.1),0 1px 3px 0 rgba(var(--bs-body-color-rgb),0.08); */
+}
+
+#individual-names {
+    box-shadow: unset;
 }
 
 /* card header */

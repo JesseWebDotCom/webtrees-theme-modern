@@ -110,6 +110,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
         // Replace an existing view with our own version.
         View::registerCustomView('::layouts/default', $this->name() . '::layouts/default');
+        View::registerCustomView('::individual-page', $this->name() . '::individual-page');
         View::registerCustomView('::individual-page-tabs', $this->name() . '::individual-page-tabs');
     }
 
@@ -230,6 +231,11 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
      */
     public function stylesheets(): array
     {
+        $files = [];
+        
+        // base styles
+        $files[] = $this->assetUrl('css/base.min.css');
+
         $palette = $this->palette();
 
         // load each palette
@@ -238,8 +244,6 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         $paletteParts = explode('-', $palette);
         $paletteName = $paletteParts[0];
         $subDirectory = isset($paletteParts[1]) ? $paletteParts[1] : '';
-    
-        $files = [];
     
         if ($subDirectory) {
             $file = $baseDirectory . $paletteName . '/' . $subDirectory . '/bootstrap.min.css';
