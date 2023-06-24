@@ -1,7 +1,16 @@
 
-/* applies to all palettes */
+/* PALETTES
+
+Contains changes that should be applied to all palettes, including:
+- mobile changes
+- fixes
+
+*/
+
+
 
 /* #region | MISC */
+
 
 /* - always show scrollbars */
 ::-webkit-scrollbar {
@@ -16,6 +25,17 @@
   }
 
 /* #endregion | MISC */
+
+/* #region | FACTS */
+
+/* standardize all labels since some come capitalized, others come all uppercase */
+.wt-fact-label.ut {
+    text-transform: lowercase;
+    }
+/* #endregion | FACTS */
+
+
+
 
 /* #region | HEADER */
 .wt-header-wrapper .dropdown-item.active {
@@ -273,39 +293,3 @@ body {
 
  /* #endregion | HEADER */
 
-
-
-/* .navbar-toggler {
-    margin-right: 20px !important;
-} */
-
-/* more space in mobile options menu */
-/* #secondaryNavbar {
-    margin-top: 10px;
-    padding: 20px;
-} */
-
-
-
-
-/* default: mobile - bottom navbar */
-/* .navbar.bg-light {
-    padding-left: 20px;
-    padding-right: 20px;
-    } */
-
-
-/* individual: facts table 
-- round border
-*/
-/* .table.wt-facts-table {
-    border: 1px solid black;
-    border-spacing: 0;
-    border-collapse: separate;
-    border-radius: 10px;
-    width:100%;  
-    }
-
-    .table.wt-facts-table th, .table.wt-facts-table td {
-        border-style : hidden!important;
-       }     */
