@@ -110,7 +110,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
         // Replace an existing view with our own version.
         View::registerCustomView('::layouts/default', $this->name() . '::layouts/default');
-        // View::registerCustomView('::individual-page', $this->name() . '::individual-page');
+        View::registerCustomView('::individual-page-tabs', $this->name() . '::individual-page-tabs');
     }
 
     /**
@@ -137,6 +137,8 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         $this->layout = 'layouts/administration';
 
         return $this->viewResponse($this->name() . '::settings', [
+            'enable_icons' => $this->getPreference('enable-icons', '0'),
+
             'allow_switch' => $this->getPreference('allow-switch', '0'),
             'palette'      => $this->getPreference('palette', 'modern-default'),
             'palettes'     => $this->palettes(),
@@ -164,6 +166,9 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
             $this->setPreference('palette', $params['palette']);
             $this->setPreference('allow-switch', $params['allow-switch']);
+
+            $this->setPreference('enable-icons', $params['enable-icons']);
+
 
             $message = I18N::translate('The preferences for the module “%s” have been updated.', $this->title());
             FlashMessages::addMessage($message, 'success');
@@ -226,9 +231,10 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
     public function stylesheets(): array
     {
         $palette = $this->palette();
+
+        // load each palette
         $baseDirectory = 'css/palettes/';
     
-        // Extract the palette name and subdirectory (if any)
         $paletteParts = explode('-', $palette);
         $paletteName = $paletteParts[0];
         $subDirectory = isset($paletteParts[1]) ? $paletteParts[1] : '';
@@ -243,7 +249,13 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
             $files[] = $this->assetUrl($file);
         }
     
+        // load changes that apply to all palettes
         $files[] = $this->assetUrl('css/palettes.css');
+
+        // load any palette customizations
+        if ($this->getPreference('enable-icons')) {
+            $files[] = $this->assetUrl('css/customizations/enable-icons.min.css');
+        }
     
         return $files;
     }

@@ -1,0 +1,145 @@
+
+/* #region | NAVBAR Menu Icons */
+  
+  /* Reusable mixin */
+  .nav-item > .nav-link::before {
+    font-family: 'Font Awesome 5 Free';
+    content: var(--content);
+    display: inline-block;
+    margin-right: 5px;
+    color: rgb(var(--bs-body-color-rgb), .25);
+  }
+  
+/* Specific usage */
+.nav-item.menu-tree a::before {
+    --content: "\f1bb";
+  }
+
+  .nav-item.menu-report a::before {
+    --content: "\f02d";
+  } 
+
+.nav-item.menu-calendar a::before {
+    --content: "\f133";
+  }
+
+.nav-item.menu-chart a::before {
+    --content: "\f200";
+  }
+
+  .nav-item.menu-list a::before {
+    --content: "\f022";
+  }  
+
+  .nav-item.menu-login a::before {
+    --content: "\f2f6";
+  }
+
+  .nav-item.menu-logout a::before {
+    --content: "\f2f5";
+  }
+
+  .nav-item.menu-language a::before {
+    --content: "\f1ab";
+  }
+
+  .nav-item.menu-theme a::before {
+    --content: "\f55d";
+  }
+  
+  .nav-item.menu-modern a::before {
+    --content: "\f53f";
+  }
+
+  .nav-item.menu-search a::before {
+    --content: "\f002";
+  }
+
+  .nav-item.menu-clippings a::before {
+    --content: "\f328";
+  }  
+
+  .nav-item.menu-mymenu a::before {
+    --content: "\f007";
+  }    
+
+/* #endregion | NAVBAR Menu Icons */
+
+/* Reusable mixin */
+.card-body.wt-block-content.wt-block-content-gedcom_block a i::before {
+    font-family: 'Font Awesome 5 Free';
+    content: var(--content);
+    display: inline-block;
+    margin-bottom: 5px;
+    color: rgb(var(--bs-body-color-rgb), .25);
+  }
+  
+  /* Specific usage */
+  .wt-block-content-gedcom_block a .icon-pedigree::before {
+    --content: '\f7b9';
+  }
+  
+  .wt-block-content-gedcom_block a .icon-indis::before {
+    --content: '\f007';
+  }
+  
+  .wt-block-content-gedcom_block a > i.icon-user_add::before {
+    --content: '\f234';
+  }
+  
+
+
+  /* Reusable mixin */
+  .card > .card-header::before {
+    font-family: 'Font Awesome 5 Free';
+    content: var(--content);
+    display: inline-block;
+    margin-right: 5px;
+    color: rgb(var(--bs-body-color-rgb), .25);
+  }
+  
+/* Specific usage */
+.wt-block-header-gedcom_stats:before {
+    --content: "\f201";
+  }
+
+
+.wt-block-header-gedcom_news:before {
+    --content: '\f1ea';
+}
+
+.wt-block-header-gedcom_favorites:before {
+    --content: '\f005';
+}
+
+.wt-block-header-gedcom_block:before {
+    --content: '\f542';
+}
+
+.wt-block-header-random_media:before {
+    --content: '\f302';
+}
+
+.wt-block-header-todays_events:before {
+    --content: '\f783';
+}
+
+.wt-block-header-logged_in:before {
+    --content: '\f51c';
+}
+
+.wt-block-header-user_favorites:before {
+    --content: '\f005';
+}
+
+.wt-block-header-upcoming_events:before {
+    --content: '\f784';
+}
+
+.wt-block-header-user_messages:before {
+    --content: '\f0e0';
+}
+
+.wt-block-header-user_welcome:before {
+    --content: '\f118';
+}

@@ -1,0 +1,26 @@
+/* #region | MISC */
+
+/* links */
+a {
+    text-decoration: none;
+    color: var(--bs-body-color);
+}          
+
+/* #endregion | MISC */
+
+/* #region | CARDS / ACCORDIONS */
+
+/* dropshadow */
+.card, .accordion {
+    box-shadow: 0 3px 6px 0 rgba(var(--bs-body-color-rgb),0.1),0 1px 3px 0 rgba(var(--bs-body-color-rgb),0.08);
+}
+
+/* card header */
+[dir] .card-header {
+    background: none !important;
+    border-bottom: none !important;
+    text-transform: uppercase;
+}  
+
+/* #endregion | CARDS / ACCORDIONS */
+
