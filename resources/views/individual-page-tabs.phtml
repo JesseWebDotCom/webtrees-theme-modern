@@ -2,6 +2,6 @@
 
 $view = view('::individual-page-tabs', get_defined_vars());
 
-$view = preg_replace('/nav-tabs/', 'nav', $view);
+$view = preg_replace('/nav-tabs/', 'nav-pills', $view); // Change tabs to pills
 
 echo $view;
