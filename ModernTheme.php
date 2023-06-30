@@ -235,9 +235,6 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
     {
         $files = [];
         
-        // base styles
-        $files[] = $this->assetUrl('css/base.min.css');
-
         $palette = $this->palette();
 
         // load each palette
@@ -262,6 +259,9 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         if ($this->getPreference('enable-icons')) {
             $files[] = $this->assetUrl('css/customizations/enable-icons.min.css');
         }
+
+        // base styles (must be here to override palettes)
+        $files[] = $this->assetUrl('css/base.min.css');
     
         return $files;
     }

@@ -60,6 +60,7 @@ Contains changes that should be applied to all palettes, including:
   z-index: 999;
   color: var(--bs-body-color);
   background-color: var(--bs-body-bg); 
+  height: 100px;
 }
 
 /* allow vertical scrolling */
