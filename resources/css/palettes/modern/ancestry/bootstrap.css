@@ -24,7 +24,7 @@
     border-color: white !important;
 }
 
-.wt-site-title, .nav-link {
+.wt-site-title, #navbarMobileTitle, .nav-link {
     color: white !important;
 }
 
