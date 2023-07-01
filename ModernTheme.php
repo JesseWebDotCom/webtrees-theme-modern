@@ -370,6 +370,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
     {
         $palettes = [
             'modern-default'       => I18N::translate('modern-default'),
+            'modern-ancestry'       => I18N::translate('modern-ancestry'),
             'bootswatch-cerulean'       => I18N::translate('bootswatch-cerulean'),
             'bootswatch-cosmo'       => I18N::translate('bootswatch-cosmo'),
             'bootswatch-cyborg'       => I18N::translate('bootswatch-cyborg'),

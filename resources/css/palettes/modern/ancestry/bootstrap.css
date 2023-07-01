@@ -1,0 +1,70 @@
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+  }
+
+#navbarMobile {
+    color: white;
+    }
+
+
+[dir] .wt-global {
+    background-color: rgb(246, 243, 240) !important;
+}
+
+.wt-header-wrapper, #navbarMobile {
+    background-color: black !important;
+}
+
+.wt-site-title, .wt-page-title span.NAME {
+    font-family: 'Times New Roman', serif;
+}
+
+[dir] .navbar-toggler {
+    color: white !important;
+    border-color: white !important;
+}
+
+.wt-site-title, .nav-link {
+    color: white !important;
+}
+
+.btn-link:hover, .nav-link:hover, a:hover {
+    text-decoration: underline;
+    text-decoration-color: #94bf13 !important;
+    text-decoration-thickness: 2px;
+}
+
+[dir] .card-header {
+    border-bottom: var(--bs-card-border-width) solid rgba(0,0,0,.1);
+}
+
+a {
+    color: #94bf13;
+}
+
+[dir] .btn, .btn:hover {
+    background-color: #94bf13;
+    border-color: #94bf13;
+
+}    
+
+[dir] .nav-pills .nav-link.active {
+    background-color: #94bf13;
+}    
+
+[dir] .form-check-input:checked {
+    background-color: #94bf13;
+    border-color: #94bf13;
+    }
+
+[dir] .wt-block-header {
+    font-weight: 600;
+    }
+
+    .card>.card-header::before {
+        color: black !important;
+    }    
+
+    [dir] .wt-block {
+        border: none !important;
+        }
