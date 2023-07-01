@@ -11,6 +11,27 @@
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+ /* #region | MODERN THEME FIXES */
+
+ /* fix light card header */
+ 
+[dir] .wt-block-header {
+  background-color: unset !important;
+}
+
+/* fix black text on dark background */
+.wt-global {
+  color: white !important;
+}
+
+[dir] .wt-global {
+  background-color: var(--bs-body-bg) !important;
+}
+
+/* #endregion | MODERN THEME FIXES */
+
+
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap");
 :root,
 [data-bs-theme=light] {
