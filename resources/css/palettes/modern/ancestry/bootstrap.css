@@ -24,7 +24,15 @@
     border-color: white !important;
 }
 
-.wt-site-title, #navbarMobileTitle, .nav-link {
+.nav-link {
+    color: black !important;
+}
+
+.wt-header-wrapper .nav-link {
+    color: white !important;
+}
+
+.wt-site-title, #navbarMobileTitle {
     color: white !important;
 }
 
@@ -50,7 +58,12 @@ a {
 
 [dir] .nav-pills .nav-link.active {
     background-color: #94bf13;
+    color: white !important;
 }    
+
+#navbarMobile .nav-link {
+    color: white !important;
+}
 
 [dir] .form-check-input:checked {
     background-color: #94bf13;
