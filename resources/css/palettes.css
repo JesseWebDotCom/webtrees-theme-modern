@@ -120,9 +120,9 @@ Contains changes that should be applied to all palettes, including:
 
     /* allow places to be scrolled on mobile */
         
-    .wt-place-hierarchy-wrapper {
-        position: relative !important;
-    }    
+    .wt-place-hierarchy-sidebar {
+        overflow-y:unset !important;
+    } 
 
 }
 @media (min-width: 1025px) {
