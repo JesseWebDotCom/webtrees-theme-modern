@@ -51,10 +51,16 @@ a {
 }
 
 [dir] .btn, .btn:hover {
-    background-color: #94bf13;
-    border-color: #94bf13;
-
+    background-color: #94bf13 !important;
+    border-color: #94bf13 !important;
+    text-decoration: none !important;
+    color: white !important;
 }    
+
+.btn-link, .btn-link:hover {
+    color: white;
+    text-decoration: none;
+    }
 
 [dir] .nav-pills .nav-link.active {
     background-color: #94bf13;
