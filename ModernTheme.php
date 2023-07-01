@@ -423,4 +423,16 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         return $palette;
     }
 
+    public function customTranslations(string $language): array
+    {
+        $lang_dir   = $this->resourcesFolder() . 'lang/';
+        $extensions = array('mo', 'po');
+        foreach ($extensions as &$extension) {
+            $file       = $lang_dir . $language . '.' . $extension;
+            if (file_exists($file)) {
+                return (new Translation($file))->asArray();
+            }
+        }
+        return [];
+    }
 };

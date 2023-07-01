@@ -1,4 +1,6 @@
 <?php
+use Fisharebest\Webtrees\I18N;
+
 // Used for getting tree URL
 use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\Http\RequestHandlers\TreePage;
@@ -44,12 +46,12 @@ $secondaryNavigation = $secondaryNavigation[1] ?? '';
     <form class="form-inline my-2 my-lg-0">
       <?= $searchBox ?>
     </form>    
-    <span style="font-weight: 700; font-size: 16px; padding-top: 10px">MAIN MENU</span>
+    <span style="font-weight: 700; font-size: 16px; padding-top: 10px"><?= I18N::translate('MAIN MENU') ?></span>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <?= $primaryNavigation ?>
     </ul>
     <hr>
-    <span style="font-weight: 700; font-size: 16px">SETTINGS</span>
+    <span style="font-weight: 700; font-size: 16px"><?= I18N::translate('SETTINGS') ?></span>
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">      
       <?= $secondaryNavigation ?>
     </ul>
