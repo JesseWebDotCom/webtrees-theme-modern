@@ -4,6 +4,12 @@ This theme optimizes webtrees for ease of use, whether viewing from a desktop or
 
 Compatibility: Webtrees 2.1.16
 
+## Features
+
+* Modernizes webtrees default look and feel
+* Desktop & Mobile optimized
+* Tons of theme palettes to choose from
+
 <h2>Desktop</h2>
 <img src="docs/darkly-desktop.png" alt="Darkly - Desktop" width="600px" >
 
