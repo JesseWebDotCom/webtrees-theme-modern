@@ -4,6 +4,21 @@ This theme optimizes webtrees for ease of use, whether viewing from a desktop or
 
 Compatibility: Webtrees 2.1.16
 
+<h2>Desktop</h2>
+<img src="docs/darkly-desktop.png" alt="Darkly - Desktop" width="600px" >
+
+<h2>Mobile</h2>
+<table>
+<tr>
+<td><img src="docs/darkly-mobile.png" alt="Darkly - Mobile" width="200px" >
+</td>
+<td><img src="docs/darkly-mobile-menu.png" alt="Darkly - Menu" width="200px" >
+</td>
+<td><img src="docs/darkly-mobile-individual.png" alt="Darkly - Mobile - Individual" width="200px" >
+</td>
+</tr>
+</table>
+
 ## Installation
 * Download and unzip the release package.
 * Place the webtrees-theme-modern folder inside modules_v4 folder of your webtrees installation.
