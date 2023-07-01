@@ -15,6 +15,26 @@
 
  /* #region | MODERN THEME FIXES */
 
+ .wt-chart .wt-chart-box-f, .wt-family-members .wt-chart-box-f {
+  background-color: var(--bs-primary) !important;
+  }
+
+  [dir] .wt-chart-box-f, [dir] .wt-chart-box-f .wt-chart-box-dropdown {
+    background-color: var(--bs-primary) !important;
+  }      
+
+  .wt-chart .wt-chart-box-m, .wt-family-members .wt-chart-box-m {
+    background-color: var(--bs-blue) !important;
+    }
+
+    [dir] .wt-chart-box-m, [dir] .wt-chart-box-m .wt-chart-box-dropdown {
+      background-color: var(--bs-blue) !important;
+    }    
+  
+  .wt-chart-ancestors .wt-chart-box, .wt-chart-descendants .wt-chart-box {
+  background-color: var(--bs-body-bg) !important;
+  }
+
  /* fix light card header */
  
  [dir] .wt-block-header {
