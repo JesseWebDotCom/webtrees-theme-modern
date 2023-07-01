@@ -11,6 +11,16 @@
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+/* #region | MODERN THEME FIXES */
+
+/* fix black text on dark background */
+.wt-global {
+  color: white !important;
+}
+
+/* #endregion | MODERN THEME FIXES */
+
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 :root,
 [data-bs-theme=light] {
