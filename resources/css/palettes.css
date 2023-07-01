@@ -74,10 +74,10 @@ Contains changes that should be applied to all palettes, including:
 #navbarMobile {
     display: none !important;
     visibility: hidden !important;   
-    color: var(--bs-body-color);
+    /* color: var(--bs-body-color); */
     background-color: var(--bs-body-bg);    
     box-shadow: 0 6px 1rem -4px rgb(var(--bs-body-color-rgb), 0.15), inset 0 6px 0 -4px rgb(var(--bs-body-color-rgb), 0.15);
-    height: 60px; 
+    /* height: 60px;  */
 }
 
 #navbarMobileTitle {
