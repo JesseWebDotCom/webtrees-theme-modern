@@ -87,3 +87,23 @@ a {
     [dir] .wt-block {
         border: none !important;
         }
+
+/* login page */
+.wt-route-LoginPage .wt-main-container {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    width: 500px;
+
+        background-color: white;
+        margin-top: 20px;
+        border-radius: 9px;
+        }
+
+    .wt-route-LoginPage .row {
+        padding-bottom: 10px;
+        }
+
+        .wt-route-LoginPage  .col-sm-9 {
+            flex: 0 0 auto;
+            width: unset;
+            }        

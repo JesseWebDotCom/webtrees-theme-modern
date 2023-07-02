@@ -1,0 +1,149 @@
+<?php
+$view = view('::individual-page', get_defined_vars());
+
+// Extract the image
+$pattern = '/<div[^>]*>\s*<a class="gallery".*?<\/div>/s';
+preg_match($pattern, $view, $matches);
+$galleryDiv = $matches[0] ?? '';
+
+// Extract the image link
+$imageLinkPattern = '/src="([^"]+)"/';
+preg_match($imageLinkPattern, $galleryDiv, $imageLinkMatches);
+$imageLink = $imageLinkMatches[1] ?? '';
+
+// Extract the link URL and text
+$linkPattern = '/<div class="text-center">\s*<a href="([^"]+)">\s*(.*?)\s*<\/a>/s';
+preg_match($linkPattern, $galleryDiv, $linkMatches);
+$linkURL = $linkMatches[1] ?? '';
+$linkText = $linkMatches[2] ?? '';
+
+// Extract the title
+$pattern = '/<h2 class="wt-page-title.*?<\/h2>/s';
+preg_match($pattern, $view, $matches);
+$pageTitleDiv = $matches[0] ?? '';
+
+// Modify the view to place the image and title in a grid
+$modifiedView = preg_replace($pattern, '<div class="navbar-grid mx-auto">' .
+    '<div class="grid-image text-center"><img src="' . $imageLink . '" alt="Image" width="150"><br><a href="' . $linkURL . '">' . $linkText . '</a></div>' .
+    '<div class="grid-title" style="font-size: 50%; padding-left: 15px">' . $pageTitleDiv . '</div>' .
+    '</div>', $view);
+
+// Pass the $imageLink variable to the modified view
+$modifiedView = str_replace('$imageLink', $imageLink, $modifiedView);
+
+// Extract the original navbar background color and box shadow
+$originalNavbar = '<header class="wt-header-wrapper';
+preg_match('/<header class="wt-header-wrapper[^"]+" style="background-color:(#[^"]+);[^"]+box-shadow:([^"]+)"/', $view, $matches);
+$navbarBackgroundColor = $matches[1] ?? '';
+$navbarBoxShadow = $matches[2] ?? '';
+
+// Display the modified view
+echo $modifiedView;
+?>
+
+
+<style>
+    .fixed-navbar h2 {
+        font-size: 16px;
+    }
+
+    .navbar-grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        align-items: center;
+    }
+
+    .navbar-grid .grid-image img {
+        width: 150px;
+    }
+
+    .fixed-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 99; /* Lower z-index to position the fixed navbar below the original navbar */
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        background-color: <?= $navbarBackgroundColor ?>;
+        box-shadow: <?= $navbarBoxShadow ?>;
+    }
+
+    .navbar-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-content .grid-image {
+        margin-right: 10px;
+    }
+
+    .grid-title {
+        font-size: 50%;
+    }
+
+    .wt-page-title.mx-auto {
+        margin-bottom: auto;
+    }
+    
+    .wt-header-wrapper {
+        pointer-events: auto;
+    }
+
+    #individual-names {
+display: none;
+}    
+
+div:has(> a.gallery) {
+  display: none;
+}
+
+@media (min-width: 768px) {
+    main {
+      padding-top: 20px;
+    }
+    .wt-header-container {
+    margin-top: 1rem;
+    }    
+  }
+  @media (max-width: 767px) {
+    main {
+      padding-top: 0px;
+    }
+    [dir] .wt-header-container {
+    margin-top: 0px;
+    }    
+  }
+</style>
+
+<script>
+    window.addEventListener('scroll', function() {
+        var navbarGrid = document.querySelector('.navbar-grid');
+        var navbar = document.querySelector('.wt-header-wrapper');
+        var fixedNavbar = document.querySelector('.fixed-navbar');
+
+        if (navbarGrid && navbar && fixedNavbar) {
+            var navbarGridOffsetTop = navbarGrid.offsetTop + 75; // Adjust the offset value here
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop >= navbarGridOffsetTop && fixedNavbar.style.opacity !== '1') {
+                navbar.style.opacity = '0';
+                fixedNavbar.style.opacity = '1';
+            } else if (scrollTop < navbarGridOffsetTop && fixedNavbar.style.opacity !== '0') {
+                navbar.style.opacity = '1';
+                fixedNavbar.style.opacity = '0';
+            }
+        }
+    });
+</script>
+
+<div class="fixed-navbar">
+    <div class="navbar-content mx-auto">
+        <div class="grid-image"><img src="<?= $imageLink ?>" alt="Image" height="40px"></div>
+        <div class="grid-title"><?= $pageTitleDiv ?></div>
+    </div>
+</div>

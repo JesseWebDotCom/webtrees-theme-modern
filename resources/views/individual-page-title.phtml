@@ -1,0 +1,10 @@
+<?php
+
+$view = view('::individual-page-title', get_defined_vars());
+
+// Replace the comma with a line break
+$view = str_replace(',', '<br>', $view);
+
+echo $view;
+
+?>
