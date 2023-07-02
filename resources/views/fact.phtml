@@ -107,21 +107,25 @@ if ($tag === 'MARR') {
                     <div class="wt-fact-record">
                         <?php if ($parent instanceof Family) : ?>
                             <?php foreach ($parent->spouses()->filter(static fn ($individual): bool => $individual !== $record) as $spouse) : ?>
+                                <div>
                                 <?php if ($spouse->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
                                     <div class="wt-chart-box-thumbnail float-start me-1">
                                         <?= $spouse->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
                                     </div>
                                 <?php endif ?>                                  
                                 <a href="<?= e($spouse->url()) ?>"><?= $spouse->fullName() ?></a> —
+                                </div>
                             <?php endforeach ?>
                             <a href="<?= e($parent->url()) ?>"><?= I18N::translate('View this family') ?></a>
                         <?php elseif ($parent instanceof Individual) : ?>
+                            <div class=thumbnail_container>
                             <?php if ($parent->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
                                 <div class="wt-chart-box-thumbnail float-start me-1">
                                     <?= $parent->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
                                 </div>
                             <?php endif ?>                              
                             <a href="<?= e($parent->url()) ?>"><?= $parent->fullName() ?></a>
+                            </div>
                         <?php endif ?>
                     </div>
                 <?php endif ?>

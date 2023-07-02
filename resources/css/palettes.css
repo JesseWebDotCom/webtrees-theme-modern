@@ -29,32 +29,6 @@ Contains changes that should be applied to all palettes, including:
   .wt-family-navigator-family .NAME {
     font-weight: 500;
   }
-  
-
-/*   
-
-.wt-family-navigator-family {
-    font-size: 13px;
-    }
-
-    .wt-family-navigator-family-heading, .wt-family-navigator-label {
-        font-size: 16px;
-        }
-    
-    .wt-family-navigator-family .NAME {
-font-size: 14.5px;
-}
-
-
-
-.wt-family-navigator-family .float-start {
-    font-size: 14.5px;
-    }
-    
-    .wt-chart-box-thumbnail img, .wt-chart-box-thumbnail i {
-        height: 40px;
-        width: 40px;
-        }  */
      
 /* #endregion | FAMILY NAVIGATOR */
 
@@ -128,6 +102,21 @@ font-size: 14.5px;
 .wt-fact-label.ut {
     text-transform: lowercase;
     }
+
+
+#personal_facts .wt-chart-box-thumbnail, #personal_facts .wt-chart-box-thumbnail img, #personal_facts .wt-fact-record .icon-silhouette {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+#personal_facts .SURN, #personal_facts .NAME {
+    font-weight: 600 !important;
+}  
+
+.thumbnail_container {
+    display: flex;
+    align-items: center;
+}
 /* #endregion | FACTS */
 
 
@@ -222,7 +211,8 @@ font-size: 14.5px;
 
 /* toggler */
 [dir] .navbar-toggler {
-    margin-top: 7px !important;
+    margin-top: 0px !important;
+    border: 0px;
 }
 
 /* shrink search box */

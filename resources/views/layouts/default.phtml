@@ -33,10 +33,21 @@ $secondaryNavigation = $secondaryNavigation[1] ?? '';
 
 <?= $view ?>
 
-<nav class="navbar fixed-top px-3 py-1" id=navbarMobile>
+<nav class="navbar fixed-top ps-2 py-1" id=navbarMobile>
   <a class="navbar" href="<?= e($tree_url) ?>" id=navbarMobileTitle>
     <?= $siteTitle ?>
   </a>
+
+  <div style="margin-left: auto; display: flex; align-items: center; justify-content: flex-end;">
+  <div class="nav-item menu-list" style="font-size: 24px !important; padding-right: 10px">
+    <a class="nav-link" href="<?= e($tree_url) . '/individual-list?show_all=yes' ?>"></a>
+  </div>
+
+  <div class="nav-item menu-search" style="font-size: 24px !important">
+    <a class="nav-link" href="<?= e($tree_url) . '/search-general' ?>"></a>
+  </div>
+</div>
+
 
   <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
