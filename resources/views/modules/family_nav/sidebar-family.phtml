@@ -55,17 +55,19 @@ use Fisharebest\Webtrees\Services\RelationshipService;
 
                 <td class="wt-family-navigator-name">
                     <?php if ($spouse->canShow()) : ?>
-                        <div style="display: inline-block; text-align: left" class="float-start">
-                                <?php if ($spouse->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
-                                    <div class="wt-chart-box-thumbnail float-start me-1">
-                                        <?= $spouse->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
-                                    </div>
-                                <?php endif ?>                        
+                        <div style="display: inline-block; text-align: left" class="profile_container float-start">
+                        <?php if ($spouse->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
+                            <div class="profile_pic wt-chart-box-thumbnail float-start me-1">
+                                <?= $spouse->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
+                            </div>
+                        <?php endif ?>     
+                            <div class=profile_details>                   
                                 <a href="<?= e($spouse->url()) ?>">
                                     <?= $spouse->fullName() ?>
                                 </a>
-                            <div class="small">
-                                <?= $spouse->lifespan() ?>
+                                <div class="small">
+                                    <?= $spouse->lifespan() ?>
+                                </div>
                             </div>
                         </div>
                     <?php else : ?>
@@ -125,17 +127,19 @@ use Fisharebest\Webtrees\Services\RelationshipService;
 
                 <td>
                     <?php if ($child->canShow()) : ?>
-                        <div style="display: inline-block; text-align: left" class="float-start">
-                            <?php if ($child->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
-                                <div class="wt-chart-box-thumbnail float-start me-1">
-                                    <?= $child->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
+                        <div style="display: inline-block; text-align: left" class="profile_container float-start">
+                        <?php if ($child->tree()->getPreference('SHOW_HIGHLIGHT_IMAGES')) : ?>
+                            <div class="profile_pic wt-chart-box-thumbnail float-start me-1">
+                                <?= $child->displayImage(40, 50, 'crop', ['class' => 'wt-chart-box-thumbnail']) ?>
+                            </div>
+                        <?php endif ?>     
+                            <div class=profile_details>                   
+                                <a href="<?= e($child->url()) ?>">
+                                    <?= $child->fullName() ?>
+                                </a>
+                                <div class="small">
+                                    <?= $child->lifespan() ?>
                                 </div>
-                            <?php endif ?>                        
-                            <a  href="<?= e($child->url()) ?>">
-                                <?= $child->fullName() ?>
-                            </a>
-                            <div class="small">
-                                <?= $child->lifespan() ?>
                             </div>
                         </div>
                     <?php else : ?>

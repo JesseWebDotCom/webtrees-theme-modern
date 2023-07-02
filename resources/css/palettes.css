@@ -7,6 +7,58 @@ Contains changes that should be applied to all palettes, including:
 
 */
 
+/* #region | FAMILY NAVIGATOR */
+
+.profile_container {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 300;
+  }
+  
+  .profile_pic {
+    margin-right: 20px; /* Adjust the margin as needed */
+  }
+  
+  .profile_details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .wt-family-navigator-family .NAME {
+    font-weight: 500;
+  }
+  
+
+/*   
+
+.wt-family-navigator-family {
+    font-size: 13px;
+    }
+
+    .wt-family-navigator-family-heading, .wt-family-navigator-label {
+        font-size: 16px;
+        }
+    
+    .wt-family-navigator-family .NAME {
+font-size: 14.5px;
+}
+
+
+
+.wt-family-navigator-family .float-start {
+    font-size: 14.5px;
+    }
+    
+    .wt-chart-box-thumbnail img, .wt-chart-box-thumbnail i {
+        height: 40px;
+        width: 40px;
+        }  */
+     
+/* #endregion | FAMILY NAVIGATOR */
+
+
 /* #region | SLIDESHOW */
 
 .wt-slide-show-links > li {
