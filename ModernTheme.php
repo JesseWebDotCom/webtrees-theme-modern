@@ -114,9 +114,12 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         View::registerCustomView('::individual-page-tabs', $this->name() . '::individual-page-tabs');
 
         View::registerCustomView('::modules/family_nav/sidebar-family', $this->name() . '::modules/family_nav/sidebar-family');
+        View::registerCustomView('::fact', $this->name() . '::fact');
 
 
         View::registerCustomView('::modules/statistics-chart/page', $this->name() . '::modules/statistics-chart/page');
+        View::registerCustomView('::modules/random_media/slide-show', $this->name() . '::modules/random_media/slide-show');
+
     }
 
     /**

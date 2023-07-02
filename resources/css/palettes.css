@@ -7,7 +7,17 @@ Contains changes that should be applied to all palettes, including:
 
 */
 
+/* #region | SLIDESHOW */
 
+.wt-slide-show-links > li {
+    display: flex;
+    align-items: center;
+    }
+
+.wt-slide-show-links .NAME {
+    padding-left: 5px;
+    }
+/* #endregion | SLIDESHOW */
 
 /* #region | MISC */
 
