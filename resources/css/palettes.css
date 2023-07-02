@@ -17,6 +17,22 @@ Contains changes that should be applied to all palettes, including:
 .wt-slide-show-links .NAME {
     padding-left: 5px;
     }
+
+    .wt-icon-media-play,
+    .wt-icon-media-next {
+        font-size: 24px;
+    }    
+
+    .wt-slide-show-controls {
+        padding-bottom: 10px;
+    }
+    
+    .card-body.wt-block-content.wt-block-content-random_media {
+        padding: 0px;
+        margin: 10px;
+        }
+    
+   
 /* #endregion | SLIDESHOW */
 
 /* #region | MISC */
