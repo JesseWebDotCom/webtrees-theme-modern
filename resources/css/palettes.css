@@ -12,24 +12,17 @@ Contains changes that should be applied to all palettes, including:
 .profile_container {
     display: flex;
     align-items: center;
-    font-size: 13px;
-    line-height: 16px;
-    font-weight: 300;
   }
   
   .profile_pic {
-    margin-right: 20px; /* Adjust the margin as needed */
+    margin-right: 20px;
   }
   
   .profile_details {
     display: flex;
     flex-direction: column;
   }
-  
-  .wt-family-navigator-family .NAME {
-    font-weight: 500;
-  }
-     
+       
 /* #endregion | FAMILY NAVIGATOR */
 
 
@@ -156,14 +149,13 @@ Contains changes that should be applied to all palettes, including:
 #navbarMobileTitle {
     text-decoration: none;
     font-size: large;
-    font-weight: 700;
 }
 
 #navbarMobile .nav-link {
     color: var(--bs-body-color);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) {       
 
     #navbarMobile {
         display: flex !important;
@@ -212,7 +204,6 @@ Contains changes that should be applied to all palettes, including:
 /* toggler */
 [dir] .navbar-toggler {
     margin-top: 0px !important;
-    border: 0px;
 }
 
 /* shrink search box */

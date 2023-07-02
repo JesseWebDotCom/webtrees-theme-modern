@@ -1,5 +1,15 @@
 /* #region | MISC */
 
+#navbarMobileTitle {
+    font-weight: 500;
+}
+
+/* toggler */
+[dir] .navbar-toggler {
+    margin-top: 0px !important;
+    border: 0px;
+}
+
 /* links */
 a {
     text-decoration: none;
@@ -7,6 +17,24 @@ a {
 }          
 
 /* #endregion | MISC */
+
+/* #region | FAMILY NAVIGATOR */
+
+.profile_container {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+.profile_container {
+    font-weight: 400;
+  }
+  
+  .wt-family-navigator-family .NAME {
+    font-size: 13px;
+    font-weight: 500;
+  }
+     
+/* #endregion | FAMILY NAVIGATOR */
 
 /* #region | CARDS / ACCORDIONS */
 
