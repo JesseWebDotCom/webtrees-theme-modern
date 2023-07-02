@@ -155,7 +155,16 @@ Contains changes that should be applied to all palettes, including:
     color: var(--bs-body-color);
 }
 
-@media (max-width: 1024px) {       
+@media (max-width: 1024px) {
+    
+    /* make table single column */
+    .wt-main-blocks {
+        width: 100%;
+    }
+    .wt-side-blocks {
+        width: 100%;
+    } 
+    
 
     #navbarMobile {
         display: flex !important;
