@@ -24,7 +24,41 @@ use Illuminate\Support\Collection;
 
 ?>
 
+<?php
+$code = $media_file->displayImage(200, 200, "cover", ["class" => "slide-show-image img-fluid"]);
+
+// Extract the src attribute value
+preg_match('/src="([^"]+)"/', $code, $matches);
+$src = $matches[1];
+?>
+
+<style>
+div.wt-slide-show-container {
+  position: relative;
+  z-index: 1;
+}
+
+div.wt-slide-show-container:before {
+  position: absolute;
+  border-radius: 20px;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: url("<?= htmlspecialchars_decode($src) ?>") no-repeat center center /cover;
+  content: '';
+  -webkit-filter: blur(5px);
+  filter: blur(5px), alpha(opacity=10);
+  z-index: -1;
+  opacity: 0.15;
+  box-shadow: 0 0 8px 8px white inset;   
+}
+
+</style>  
+
 <div class="wt-slide-show-container">
+<div id=slide-show-content>
     <?php if ($show_controls) : ?>
         <div class="wt-slide-show-controls text-center">
             <a href="#" title="<?= I18N::translate('Play') ?>" <?= $start_automatically ? 'hidden' : '' ?>>
@@ -56,7 +90,8 @@ use Illuminate\Support\Collection;
             <?= view('fact-gedcom-fields', ['gedcom' => $fact->gedcom(), 'parent' => $media->tag(), 'tree' => $tree]) ?>
         <?php endforeach ?>
     </p>
-
+    
+    <div id=slide-show-links-container>
     <ul class="fa-ul wt-slide-show-links">
         <?php foreach ($linked_individuals as $individual) : ?>
             <li>               
@@ -91,6 +126,9 @@ use Illuminate\Support\Collection;
             </li>
         <?php endforeach ?>
     </ul>
+        </div>
+
+        </div>
 </div>
 
 <script>

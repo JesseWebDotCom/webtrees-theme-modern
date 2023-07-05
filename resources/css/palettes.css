@@ -7,6 +7,106 @@ Contains changes that should be applied to all palettes, including:
 
 */
 
+/* fixes */
+
+/* login page - space bwteen rows */
+.wt-page-options .row {
+    margin-bottom: 10px;
+}
+
+/* login page - center */
+[dir] .wt-route-LoginPage .wt-page-title {
+    text-align: center !important;
+    }
+
+.wt-route-LoginPage .wt-main-container {
+    text-align: center;
+}
+
+.wt-page-options-login .row {
+    align-items: center;
+    flex-direction: column;
+}
+
+/* login page - field name and value widths */
+.wt-page-options-login  .wt-page-options-label {
+    flex: 0 0 auto;
+    max-width: 200px; 
+}
+.wt-page-options-login .wt-page-options-value {
+    flex: 1 1 auto;
+    max-width: 500px; 
+}
+
+
+/* prevent text from overflowing */
+bdi {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* prevent text from expanding parent */
+.wt-facts-table p,
+#personal_facts span.ut,
+#personal_facts span.value {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* individual tree link */
+#tree-link a:before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: '\f1bb\00a0';
+    margin-right: 0px;
+}
+
+#tree-link {
+    font-size: 1rem;
+    display: inline-block;
+    width: 100px;
+    list-style: none;
+    margin: 0px;
+    padding-top: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    color: rgb(var(--theme-secondary-header-font-color-rgb), 1);
+}
+
+
+/* individual header - thumbnail, name, etc */
+.individual-header {
+    width: 100%;
+    font-size: .5rem;
+    padding-bottom: 10px;
+}
+
+
+/* individual page title */
+.individual-header .wt-page-title {
+    text-align: left;
+    font-weight: 400;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+
+/* ALBUM */
+
+.wt-tab-album {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .wt-album-tab-figure {
+    margin: 10px;
+  }
+
+
 /* #region | FAMILY NAVIGATOR */
 
 .profile_container {
@@ -22,7 +122,8 @@ Contains changes that should be applied to all palettes, including:
     display: flex;
     flex-direction: column;
   }
-       
+
+  
 /* #endregion | FAMILY NAVIGATOR */
 
 
@@ -38,6 +139,7 @@ Contains changes that should be applied to all palettes, including:
     }
 
     .wt-icon-media-play,
+    .wt-icon-media-stop,
     .wt-icon-media-next {
         font-size: 24px;
     }    
@@ -47,8 +149,8 @@ Contains changes that should be applied to all palettes, including:
     }
     
     .card-body.wt-block-content.wt-block-content-random_media {
-        padding: 0px;
-        margin: 10px;
+        /* padding: 0px; */
+        /* margin: 10px; */
         }
     
    
@@ -90,6 +192,8 @@ Contains changes that should be applied to all palettes, including:
 /* #endregion | MISC */
 
 /* #region | FACTS */
+
+
 
 /* standardize all labels since some come capitalized, others come all uppercase */
 .wt-fact-label.ut {

@@ -1,0 +1,59 @@
+/* #region | MISC */
+
+#navbarMobileTitle {
+    font-weight: 500;
+}
+
+/* toggler */
+[dir] .navbar-toggler {
+    margin-top: 0px !important;
+    border: 0px;
+}
+
+/* links */
+a {
+    text-decoration: none;
+    color: var(--bs-body-color);
+}          
+
+/* #endregion | MISC */
+
+/* #region | FAMILY NAVIGATOR */
+
+.profile_container {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+.profile_container {
+    font-weight: 400;
+  }
+  
+  .wt-family-navigator-family .NAME {
+    font-size: 13px;
+    font-weight: 500;
+  }
+     
+/* #endregion | FAMILY NAVIGATOR */
+
+/* #region | CARDS / ACCORDIONS */
+
+/* dropshadow */
+.card, .accordion {
+    border: 0 !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,.05);
+    /* box-shadow: 0 3px 6px 0 rgba(var(--bs-body-color-rgb),0.1),0 1px 3px 0 rgba(var(--bs-body-color-rgb),0.08); */
+}
+
+#individual-names {
+    box-shadow: unset;
+}
+
+/* card header */
+[dir] .card-header {
+    background: none !important;
+    border-bottom: none !important;
+    text-transform: uppercase;
+}  
+
+/* #endregion | CARDS / ACCORDIONS */

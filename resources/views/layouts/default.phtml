@@ -15,7 +15,7 @@ $view = view('::layouts/default', get_defined_vars());
 
 // Extract site title
 preg_match('/<h1 class="col wt-site-title">(.*?)<\/h1>/s', $view, $siteTitle);
-$siteTitle = $siteTitle[1] ?? '';
+$siteTitle = '<div class="col wt-site-logo"></div>' . $siteTitle[1] ?? '';
 
 // Extract search box
 preg_match('/<form[^>]+class="[^"]*wt-header-search-form[^"]*"[^>]*>(.*?)<\/form>/s', $view, $searchBox);
@@ -38,14 +38,14 @@ $secondaryNavigation = $secondaryNavigation[1] ?? '';
     <?= $siteTitle ?>
   </a>
 
-  <div style="margin-left: auto; display: flex; align-items: center; justify-content: flex-end;">
+  <!-- <div style="margin-left: auto; display: flex; align-items: center; justify-content: flex-end;">
   <div class="nav-item menu-list" style="font-size: 24px !important; padding-right: 10px">
     <a class="nav-link" href="<?= e($tree_url) . '/individual-list?show_all=yes' ?>"></a>
   </div>
 
   <div class="nav-item menu-search" style="font-size: 24px !important">
     <a class="nav-link" href="<?= e($tree_url) . '/search-general' ?>"></a>
-  </div>
+  </div> -->
 </div>
 
 

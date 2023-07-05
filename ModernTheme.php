@@ -110,8 +110,12 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
         // Replace an existing view with our own version.
         View::registerCustomView('::layouts/default', $this->name() . '::layouts/default');
+   
         View::registerCustomView('::individual-page', $this->name() . '::individual-page');
         View::registerCustomView('::individual-page-tabs', $this->name() . '::individual-page-tabs');
+        View::registerCustomView('::individual-page-menu', $this->name() . '::individual-page-menu');
+        View::registerCustomView('::individual-page-names', $this->name() . '::individual-page-names');
+        View::registerCustomView('::individual-page-images', $this->name() . '::individual-page-images');        
 
         View::registerCustomView('::modules/family_nav/sidebar-family', $this->name() . '::modules/family_nav/sidebar-family');
         View::registerCustomView('::fact', $this->name() . '::fact');
@@ -243,6 +247,10 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         
         $palette = $this->palette();
 
+        // load changes that apply to all palettes
+        $files[] = $this->assetUrl('css/palettes.css');
+
+
         // load each palette
         $baseDirectory = 'css/palettes/';
     
@@ -257,9 +265,6 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
             $file = $baseDirectory . $paletteName . '/bootstrap.min.css';
             $files[] = $this->assetUrl($file);
         }
-    
-        // load changes that apply to all palettes
-        $files[] = $this->assetUrl('css/palettes.css');
 
         // load any palette customizations
         if ($this->getPreference('enable-icons')) {
@@ -376,6 +381,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
     {
         $palettes = [
             'modern-default'       => I18N::translate('modern-default'),
+            'modern-plain'       => I18N::translate('modern-plain'),
             'modern-ancestry'       => I18N::translate('modern-ancestry'),
             'bootswatch-cerulean'       => I18N::translate('bootswatch-cerulean'),
             'bootswatch-cosmo'       => I18N::translate('bootswatch-cosmo'),
