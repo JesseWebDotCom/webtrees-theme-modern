@@ -12,9 +12,10 @@ use Fisharebest\Webtrees\Http\RequestHandlers\UserListPage;
 use Fisharebest\Webtrees\User;
 use Illuminate\Support\Collection;
 
-// use JessewebDotCom\Webtrees\Module\ModernTheme\ModernTheme;
-// $module = app(ModernTheme::class);
 use Fisharebest\Webtrees\Module\ModuleThemeInterface;
+
+use Fisharebest\Webtrees\Registry;
+use Fisharebest\Webtrees\Services\RelationshipService;
 
 /**
  * @var string                                 $age
@@ -28,6 +29,8 @@ use Fisharebest\Webtrees\Module\ModuleThemeInterface;
  * @var Tree                                   $tree
  * @var Collection<int,User>                   $users
  */
+
+//  $temp = Registry::container()->get(RelationshipService::class)->getCloseRelationshipName($individual, $record) ;
 ?>
 
 <?= view('individual-page-pending', ['record' => $record]) ?>
@@ -96,3 +99,60 @@ use Fisharebest\Webtrees\Module\ModuleThemeInterface;
 
 <?= view('modals/ajax') ?>
 <?= view('modals/shares', ['shares' => $shares, 'title' => I18N::translate('Share') . ' — ' . $record->fullName()]) ?>
+
+<?php
+// use Fisharebest\Webtrees\Auth; 
+
+ function getPalette(): string
+ {
+     $palette = Auth::user()->getPreference('modern-palette', '');
+
+     if ($palette === '') {
+         $palette = 'modern-default';
+     }
+
+     return $palette;
+ }
+
+ function getColors(): array
+ {
+    $palette = getPalette();
+    $background_color = '#FFFFFF';
+    $theme_color = '#2694e8';
+    switch ($palette) {
+        case 'modern-default':
+            // $background_color = '#F4F7FC';
+            // $theme_color = '#3333CC';
+            $background_color = '#3333CC';
+            $theme_color = '#3333CC';
+            break;
+        case 'modern-plain':
+            $background_color = '#FFFFFF';
+            $theme_color = '#FFFFFF';
+            break;
+        case 'modern-ancestry':
+            $background_color = '#F6F3F0';
+            $theme_color = '#000000';
+            break;
+        }
+    return [$background_color, $theme_color];
+ }
+
+ [$background_color, $theme_color] = getColors();
+ ?>
+
+<?= json_encode((object) [
+    'name'             => 'webtrees',
+    'short_name'       => 'webtrees',
+    'description'      => 'webtrees online genealogy',
+    'scope'            => '/',
+    'start_url'        => '/',
+    'background_color' => $background_color,
+    'theme_color'      => $theme_color,
+    'display'          => 'standalone',
+    'icons'            => [(object) [
+        'src'   => asset('favicon-192.png'),
+        'sizes' => '192x192',
+        'type'  => 'image/png',
+    ]],
+], JSON_THROW_ON_ERROR) ?>

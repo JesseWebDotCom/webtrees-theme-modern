@@ -110,7 +110,9 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
         // Replace an existing view with our own version.
         View::registerCustomView('::layouts/default', $this->name() . '::layouts/default');
-   
+
+        View::registerCustomView('::webmanifest-json', $this->name() . '::webmanifest-json');
+
         View::registerCustomView('::individual-page', $this->name() . '::individual-page');
         View::registerCustomView('::individual-page-tabs', $this->name() . '::individual-page-tabs');
         View::registerCustomView('::individual-page-menu', $this->name() . '::individual-page-menu');
