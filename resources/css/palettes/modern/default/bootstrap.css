@@ -40,6 +40,7 @@ a:hover {
 #navbarMobile {
     display: flex !important;
     visibility: visible !important;
+    box-shadow: none !important;
 }
 
 #navbarMobileTitle {
@@ -422,3 +423,7 @@ body {
     font-weight: 500;
   }
 
+/* my page  - hide title */
+.wt-route-UserPage .wt-main-container h2 {
+    display: none;
+    }
