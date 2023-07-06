@@ -14,7 +14,9 @@ use Illuminate\Support\Collection;
 
 use Fisharebest\Webtrees\Module\ModuleThemeInterface;
 
+// needed to show relationship name
 use Fisharebest\Webtrees\Registry;
+use Fisharebest\Webtrees\Services\UserService;
 use Fisharebest\Webtrees\Services\RelationshipService;
 
 /**
@@ -30,7 +32,32 @@ use Fisharebest\Webtrees\Services\RelationshipService;
  * @var Collection<int,User>                   $users
  */
 
-//  $temp = Registry::container()->get(RelationshipService::class)->getCloseRelationshipName($individual, $record) ;
+
+$relationship = '';
+$user_service   = new UserService();
+$user = $user_service->find(Auth::id());
+
+if ($user !== null) {
+    $gedcom_id = $tree->getUserPreference($user, 'gedcomid');
+
+    if ($gedcom_id !== null && $tree !== null) {
+        $individual1 = Registry::individualFactory()->make($gedcom_id, $tree);
+        
+        if ($record !== null && $individual1 !== null) {
+            // Get the relationship between two individuals.
+            $relationship_service = new RelationshipService();
+            $relationship = $relationship_service->getCloseRelationshipName($individual1, $record);
+
+            if (!empty($relationship)) {
+                if ($relationship === 'himself' || $relationship === 'herself' || $relationship === 'themself') {
+                    $relationship = I18N::translate('you');
+                } else {
+                    $relationship = I18N::translate('your') . ' ' . I18N::translate($relationship);
+                }
+            }
+        }
+    }
+}
 ?>
 
 <?= view('individual-page-pending', ['record' => $record]) ?>
@@ -38,50 +65,53 @@ use Fisharebest\Webtrees\Services\RelationshipService;
     <div style="display: table">
         <table id=individual-header-table>
             <thead>
-                <tr>
-                    <td rowspan="3" valign=top>
-                        <?= view('individual-page-images', ['can_upload_media' => $can_upload_media, 'individual_media' => $individual_media, 'record' => $record, 'tree' => $tree]) ?>
-                    </td>
-                    <td colspan="2">
-                        <h2 class="wt-page-title mx-auto my-0">
-                            <?= $record->fullName() ?>
-                        </h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <h2 class="wt-page-title mx-auto my-0">
-                            <?php if ($record->getBirthDate()->isOK() || $record->getDeathDate()->isOK()) : ?>
-                                <?php if ($record->sex() === 'F') : ?>
-                                    <span class="wt-icon-sex wt-icon-sex-f"><i class="fas fa-venus fa-fw" aria-hidden="true"></i></span>
-                                <?php elseif ($record->sex() === 'M') : ?>
-                                    <span class="wt-icon-sex wt-icon-sex-m"><i class="fas fa-mars fa-fw" aria-hidden="true"></i></span>
-                                <?php elseif ($record->sex() === 'X') : ?>
-                                    <span class="wt-icon-sex wt-icon-sex-x"><i class="fas fa-transgender fa-fw" aria-hidden="true"></i></span>
-                                <?php elseif ($record->sex() === 'U') : ?>
-                                    <span class="wt-icon-sex wt-icon-sex-u"><i class="fas fa-genderless fa-fw" aria-hidden="true"></i></span>
-                                <?php endif ?>                         
-                                <?= $record->lifespan() ?>
-                            <?php endif ?></?>
-                            <?= $age ?>
-                        </h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <ul id="tree-link" class="horizontal-list">                                                       
-                            <li class="nav-item dropdown menu-chart" style="padding:0">
-                                <a id=tree-link href="../../hourglass-3-1/<?= $record->xref() ?>" class="nav-link" role="button">&nbsp;View Tree</a>                              
-                            </li>
-                        </ul>                          
-                    </td>
-                    <td align=right valign=middle style="padding-right:10px">
-                        <?php if ($record->canEdit()) : ?>
-                            <?php $edit_button = view('individual-page-menu', ['can_upload_media' => $can_upload_media, 'clipboard_facts' => $clipboard_facts, 'record' => $record, 'shares' => $shares]) ?>
-                            <?= preg_replace('/aria-expanded="false"[\s\S]+?<\/button>/', 'aria-expanded="false"><i class="fa fa-pencil" aria-hidden="true"></i></button>', $edit_button) ?>
-                        <?php endif ?>                       
-                    </td>
-                </tr>
+            <tr>
+                <td rowspan="4">
+                    <?= view('individual-page-images', ['can_upload_media' => $can_upload_media, 'individual_media' => $individual_media, 'record' => $record, 'tree' => $tree]) ?>
+                </td>
+                <td colspan=2>
+                    <h2 class="wt-page-title mx-auto my-0">
+                        <?= $record->fullName() ?>
+                    </h2>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <h4 class="wt-page-title mx-auto my-0">
+                        <?php if ($record->getBirthDate()->isOK() || $record->getDeathDate()->isOK()) : ?>
+                            <?php if ($record->sex() === 'F') : ?>
+                                <span class="wt-icon-sex wt-icon-sex-f"><i class="fas fa-venus fa-fw" aria-hidden="true"></i></span>
+                            <?php elseif ($record->sex() === 'M') : ?>
+                                <span class="wt-icon-sex wt-icon-sex-m"><i class="fas fa-mars fa-fw" aria-hidden="true"></i></span>
+                            <?php elseif ($record->sex() === 'X') : ?>
+                                <span class="wt-icon-sex wt-icon-sex-x"><i class="fas fa-transgender fa-fw" aria-hidden="true"></i></span>
+                            <?php elseif ($record->sex() === 'U') : ?>
+                                <span class="wt-icon-sex wt-icon-sex-u"><i class="fas fa-genderless fa-fw" aria-hidden="true"></i></span>
+                            <?php endif ?>                         
+                            <?= $record->lifespan() ?>
+                        <?php endif ?></?>
+                        <?= $age ?>                    
+                    </h4>
+                </td>
+            </tr>
+            <tr>
+                <td class=relationship><?= $relationship ?></td>
+                <td rowspan="2" valign=middle style="padding-left: 10px; text-align: right">
+                    <?php if ($record->canEdit()) : ?>
+                        <?php $edit_button = view('individual-page-menu', ['can_upload_media' => $can_upload_media, 'clipboard_facts' => $clipboard_facts, 'record' => $record, 'shares' => $shares]) ?>
+                        <?= preg_replace('/aria-expanded="false"[\s\S]+?<\/button>/', 'aria-expanded="false"><i class="fa fa-pencil" aria-hidden="true"></i></button>', $edit_button) ?>
+                    <?php endif ?>   
+                </td>
+            </tr>
+            <tr style="height:14px;">
+                <td style="text-align: center">
+                    <ul id="tree-link" class="horizontal-list">                                                       
+                        <li class="nav-item dropdown menu-chart" style="padding:0">
+                            <a id=tree-link href="../../hourglass-3-1/<?= $record->xref() ?>" class="nav-link" role="button">&nbsp;View Tree</a>                              
+                        </li>
+                    </ul>                                              
+                </td>
+            </tr>
             </thead>
         </table>
     </div>
@@ -99,60 +129,3 @@ use Fisharebest\Webtrees\Services\RelationshipService;
 
 <?= view('modals/ajax') ?>
 <?= view('modals/shares', ['shares' => $shares, 'title' => I18N::translate('Share') . ' — ' . $record->fullName()]) ?>
-
-<?php
-// use Fisharebest\Webtrees\Auth; 
-
- function getPalette(): string
- {
-     $palette = Auth::user()->getPreference('modern-palette', '');
-
-     if ($palette === '') {
-         $palette = 'modern-default';
-     }
-
-     return $palette;
- }
-
- function getColors(): array
- {
-    $palette = getPalette();
-    $background_color = '#FFFFFF';
-    $theme_color = '#2694e8';
-    switch ($palette) {
-        case 'modern-default':
-            // $background_color = '#F4F7FC';
-            // $theme_color = '#3333CC';
-            $background_color = '#3333CC';
-            $theme_color = '#3333CC';
-            break;
-        case 'modern-plain':
-            $background_color = '#FFFFFF';
-            $theme_color = '#FFFFFF';
-            break;
-        case 'modern-ancestry':
-            $background_color = '#F6F3F0';
-            $theme_color = '#000000';
-            break;
-        }
-    return [$background_color, $theme_color];
- }
-
- [$background_color, $theme_color] = getColors();
- ?>
-
-<?= json_encode((object) [
-    'name'             => 'webtrees',
-    'short_name'       => 'webtrees',
-    'description'      => 'webtrees online genealogy',
-    'scope'            => '/',
-    'start_url'        => '/',
-    'background_color' => $background_color,
-    'theme_color'      => $theme_color,
-    'display'          => 'standalone',
-    'icons'            => [(object) [
-        'src'   => asset('favicon-192.png'),
-        'sizes' => '192x192',
-        'type'  => 'image/png',
-    ]],
-], JSON_THROW_ON_ERROR) ?>

@@ -24,3 +24,11 @@ msgstr "MAIN MENU"
 
 msgid "SETTINGS"
 msgstr "SETTINGS"
+
+
+# RELATION
+msgid "you"
+msgstr "you"
+
+msgid "your"
+msgstr "your"

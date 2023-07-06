@@ -64,12 +64,11 @@ bdi {
 }
 
 #tree-link {
-    font-size: 1rem;
+    font-size: 14px;
     display: inline-block;
     width: 100px;
     list-style: none;
     margin: 0px;
-    padding-top: 5px;
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 0;
@@ -193,6 +192,15 @@ bdi {
 
 /* #region | FACTS */
 
+/* relationship */
+
+.relationship {
+    font-size: 18px !important;
+    line-height: 18px;;
+    /* padding-top: 10px; */
+    font-style: italic;
+    text-align: center;
+}
 
 
 /* standardize all labels since some come capitalized, others come all uppercase */

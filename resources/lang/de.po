@@ -1,26 +1,30 @@
 # MODULE
-
 msgid "modern"
 msgstr "modern"
 
 # MODULE - SETTINGS
-
 msgid "Default color palette"
-msgstr "Standardfarbpalette"
+msgstr "Standaard kleurenpalet"
 
 msgid "Allow visitors to switch to another color palette"
-msgstr "Besuchern erlauben, zu einem anderen Farbschema zu wechseln"
+msgstr "Laat bezoekers overschakelen naar een ander kleurenpalet"
 
 msgid "Customizations"
-msgstr "Anpassungen"
+msgstr "Aanpassingen"
 
 msgid "Enable icons for headings and menus"
-msgstr "Symbole für Überschriften und Menüs aktivieren"
+msgstr "Pictogrammen inschakelen voor koppen en menu's"
 
 # MENUS
-
 msgid "MAIN MENU"
-msgstr "HAUPTMENÜ"
+msgstr "HOOFDMENU"
 
 msgid "SETTINGS"
-msgstr "EINSTELLUNGEN"
+msgstr "INSTELLINGEN"
+
+# RELATION
+msgid "you"
+msgstr "du"
+
+msgid "your"
+msgstr "dein"
