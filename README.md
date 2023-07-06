@@ -8,6 +8,14 @@ Compatibility: Webtrees 2.1.16
 
 * Modernizes webtrees default look and feel
 * Desktop & Mobile optimized
+* Enhanced slideshow block
+    * People thumbnails
+    * Subtle backrgound
+* Enhanced individual page
+    * People thumbnails
+    * Relationship (ex. "your wife")
+    * Compact header
+    * Scrollable section headings (must use moder-default palette)
 * Tons of theme palettes to choose from:
     * Light mode palettes
     * Dark mode palettes
@@ -16,16 +24,17 @@ Compatibility: Webtrees 2.1.16
     * Palettes that mimick the look and feel of pay as you go services (ex. Ancestry)
 
 <h2>Desktop</h2>
-<img src="docs/darkly-desktop.png" alt="Darkly - Desktop" width="600px" >
+<img src="docs/modern_default-desktop.png" alt="Desktop" width="600px" >
+<img src="docs/modern_default-desktop-individual.png" alt="Desktop" width="600px" >
 
 <h2>Mobile</h2>
 <table>
 <tr>
-<td><img src="docs/darkly-mobile.png" alt="Darkly - Mobile" width="200px" >
+<td><img src="docs/modern_default-mobile.png" alt="Mobile" width="200px" >
 </td>
-<td><img src="docs/darkly-mobile-menu.png" alt="Darkly - Menu" width="200px" >
+<td><img src="docs/modern_default-mobile-menu.png" alt="Menu" width="200px" >
 </td>
-<td><img src="docs/darkly-mobile-individual.png" alt="Darkly - Mobile - Individual" width="200px" >
+<td><img src="docs/modern_default-mobile-individual.png" alt="Mobile - Individual" width="200px" >
 </td>
 </tr>
 </table>
