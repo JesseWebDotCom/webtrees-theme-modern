@@ -452,15 +452,10 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
     public function customTranslations(string $language): array
     {
-        $lang_dir = $this->resourcesFolder() . 'lang/';
-        $extensions = array('mo', 'po');
-        foreach ($extensions as &$extension) {
-            $file = $lang_dir . $language . '.' . $extension;
-            if (file_exists($file)) {
-                return (new Translation($file))->asArray();
-            }
-        }
-        return [];
+        // echo 'LANGUAGE = ' . $language;
+        $file = $this->resourcesFolder() . 'lang/' . $language . '.po';
+
+        return file_exists($file) ? (new Translation($file))->asArray() : [];
     }
 }
 ;
