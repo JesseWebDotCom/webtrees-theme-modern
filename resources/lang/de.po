@@ -23,8 +23,18 @@ msgid "SETTINGS"
 msgstr "INSTELLINGEN"
 
 # RELATION
-msgid "you"
+msgctxt "modern-relation"
+msgid "himself"
 msgstr "du"
 
+msgctxt "modern-relation"
+msgid "herself"
+msgstr "du"
+
+msgctxt "modern-relation"
+msgid "themself"
+msgstr "du"
+
+msgctxt "modern-relation"
 msgid "your"
 msgstr "dein"

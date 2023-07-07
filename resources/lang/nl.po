@@ -34,3 +34,20 @@ msgstr "HOOFDMENU"
 
 msgid "SETTINGS"
 msgstr "INSTELLINGEN"
+
+# RELATION
+msgctxt "modern-relation"
+msgid "himself"
+msgstr "jij"
+
+msgctxt "modern-relation"
+msgid "herself"
+msgstr "jij"
+
+msgctxt "modern-relation"
+msgid "themself"
+msgstr "jij"
+
+msgctxt "modern-relation"
+msgid "your"
+msgstr "jouw"

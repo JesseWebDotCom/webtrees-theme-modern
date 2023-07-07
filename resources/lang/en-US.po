@@ -25,10 +25,19 @@ msgstr "MAIN MENU"
 msgid "SETTINGS"
 msgstr "SETTINGS"
 
-
 # RELATION
-msgid "you"
+msgctxt "modern-relation"
+msgid "himself"
 msgstr "you"
 
+msgctxt "modern-relation"
+msgid "herself"
+msgstr "you"
+
+msgctxt "modern-relation"
+msgid "themself"
+msgstr "you"
+
+msgctxt "modern-relation"
 msgid "your"
 msgstr "your"
