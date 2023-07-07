@@ -15,7 +15,20 @@ use Fisharebest\Webtrees\Http\RequestHandlers\ControlPanel;
         <?= csrf_field() ?>
         <input type="hidden" name="save" id="save" value="1">
 
-         <!-- PALETTE LIST -->
+        <hr/>
+        <h4><?= I18N::translate('Palettes') ?></h4>
+
+         <!-- ENABLE UNSUPPORTED -->
+         <div class="row mb-3">
+            <label class="col-sm-3 col-form-label" for="enable-unsupported">
+                <?= I18N::translate('Enable unsupported palettes') ?>
+            </label>
+            <div class="col-sm-9 my-auto">
+                <?= view('components/radios-inline', ['name' => 'enable-unsupported', 'options' => [I18N::translate('no'), I18N::translate('yes')], 'selected' => (int) $enable_unsupported]) ?>
+            </div>
+        </div>       
+
+         <!-- DEFAULT PALETTE -->
          <div class="row mb-3">
             <label class="col-sm-3 col-form-label" for="palette">
                 <?= I18N::translate('Default color palette') ?>
@@ -55,3 +68,32 @@ use Fisharebest\Webtrees\Http\RequestHandlers\ControlPanel;
         </button>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    var optionsBackup = $('select[name="palette"] option').clone();
+
+    $('input[name="enable-unsupported"]').on('change', function() {
+        var value = $(this).val();
+        if (value === '0') {
+            // remove all options that start with "bootswatch-"
+            $('select[name="palette"] option').each(function() {
+                if ($(this).val().startsWith('bootswatch-')) {
+                    $(this).remove();
+                }
+            });
+        } else {
+            // add all options back from the backup
+            $('select[name="palette"]').empty().append(optionsBackup.clone());
+        }
+    });
+
+    // Trigger change event on the selected radio button on page load
+    $('input[name="enable-unsupported"]:checked').trigger('change');
+});
+</script>
+
+
+
+

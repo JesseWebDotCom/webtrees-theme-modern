@@ -120,6 +120,8 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         View::registerCustomView('::individual-page-images', $this->name() . '::individual-page-images');        
 
         View::registerCustomView('::modules/family_nav/sidebar-family', $this->name() . '::modules/family_nav/sidebar-family');
+        // View::registerCustomView('::modules/place-hierarchy/map', $this->name() . '::modules/place-hierarchy/map');
+        
         View::registerCustomView('::fact', $this->name() . '::fact');
 
 
@@ -153,11 +155,12 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
         return $this->viewResponse($this->name() . '::settings', [
             'enable_icons' => $this->getPreference('enable-icons', '0'),
+            'enable_unsupported' => $this->getPreference('enable-unsupported', '0'),
 
             'allow_switch' => $this->getPreference('allow-switch', '0'),
             'palette'      => $this->getPreference('palette', 'modern-default'),
             'palettes'     => $this->palettes(),
-            'title'        => $this->title()
+            'title'        => $this->title(),
         ]);
     }
 
@@ -180,9 +183,11 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
             }
 
             $this->setPreference('palette', $params['palette']);
+            
             $this->setPreference('allow-switch', $params['allow-switch']);
 
             $this->setPreference('enable-icons', $params['enable-icons']);
+            $this->setPreference('enable-unsupported', $params['enable-unsupported']);
 
 
             $message = I18N::translate('The preferences for the module “%s” have been updated.', $this->title());
@@ -381,36 +386,42 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
      */
     private function palettes(): array
     {
+
         $palettes = [
             'modern-default'       => I18N::translate('modern-default'),
-            'modern-plain'       => I18N::translate('modern-plain'),
-            'modern-ancestry'       => I18N::translate('modern-ancestry'),
-            'bootswatch-cerulean'       => I18N::translate('bootswatch-cerulean'),
-            'bootswatch-cosmo'       => I18N::translate('bootswatch-cosmo'),
-            'bootswatch-cyborg'       => I18N::translate('bootswatch-cyborg'),
-            'bootswatch-darkly'       => I18N::translate('bootswatch-darkly'),
-            'bootswatch-flatly'       => I18N::translate('bootswatch-flatly'),
-            'bootswatch-journal'       => I18N::translate('bootswatch-journal'),
-            'bootswatch-litera'       => I18N::translate('bootswatch-litera'),
-            'bootswatch-lumen'       => I18N::translate('bootswatch-lumen'),
-            'bootswatch-lux'       => I18N::translate('bootswatch-lux'),
-            'bootswatch-materia'       => I18N::translate('bootswatch-materia'),
-            'bootswatch-minty'       => I18N::translate('bootswatch-minty'),
-            'bootswatch-morph'       => I18N::translate('bootswatch-morph'),
-            'bootswatch-pulse'       => I18N::translate('bootswatch-pulse'),
-            'bootswatch-quartz'       => I18N::translate('bootswatch-darkquartzly'),
-            'bootswatch-sandstone'       => I18N::translate('bootswatch-sandstone'),
-            'bootswatch-simplex'       => I18N::translate('bootswatch-simplex'),
-            'bootswatch-sketchy'       => I18N::translate('bootswatch-sketchy'),
-            'bootswatch-spacelab'       => I18N::translate('bootswatch-spacelab'),
-            'bootswatch-superhero'       => I18N::translate('bootswatch-superhero'),
-            'bootswatch-united'       => I18N::translate('bootswatch-united'),
-            'bootswatch-vapor'       => I18N::translate('bootswatch-vapor'),
-            'bootswatch-yeti'       => I18N::translate('bootswatch-yeti'),
-            'bootswatch-zephyr'       => I18N::translate('bootswatch-zephyr'),
+            'modern-plain'         => I18N::translate('modern-plain'),
+            'modern-ancestry'      => I18N::translate('modern-ancestry'),
         ];
+        
+        if ($this->getPreference('enable-unsupported')) {
+            $bootswatch_palettes = [
+                'bootswatch-cerulean'       => I18N::translate('bootswatch-cerulean'),
+                'bootswatch-cosmo'       => I18N::translate('bootswatch-cosmo'),
+                'bootswatch-cyborg'       => I18N::translate('bootswatch-cyborg'),
+                'bootswatch-darkly'       => I18N::translate('bootswatch-darkly'),
+                'bootswatch-flatly'       => I18N::translate('bootswatch-flatly'),
+                'bootswatch-journal'       => I18N::translate('bootswatch-journal'),
+                'bootswatch-litera'       => I18N::translate('bootswatch-litera'),
+                'bootswatch-lumen'       => I18N::translate('bootswatch-lumen'),
+                'bootswatch-lux'       => I18N::translate('bootswatch-lux'),
+                'bootswatch-materia'       => I18N::translate('bootswatch-materia'),
+                'bootswatch-minty'       => I18N::translate('bootswatch-minty'),
+                'bootswatch-morph'       => I18N::translate('bootswatch-morph'),
+                'bootswatch-pulse'       => I18N::translate('bootswatch-pulse'),
+                'bootswatch-quartz'       => I18N::translate('bootswatch-quartz'),
+                'bootswatch-sandstone'       => I18N::translate('bootswatch-sandstone'),
+                'bootswatch-simplex'       => I18N::translate('bootswatch-simplex'),
+                'bootswatch-sketchy'       => I18N::translate('bootswatch-sketchy'),
+                'bootswatch-spacelab'       => I18N::translate('bootswatch-spacelab'),
+                'bootswatch-superhero'       => I18N::translate('bootswatch-superhero'),
+                'bootswatch-united'       => I18N::translate('bootswatch-united'),
+                'bootswatch-vapor'       => I18N::translate('bootswatch-vapor'),
+                'bootswatch-yeti'       => I18N::translate('bootswatch-yeti'),
+                'bootswatch-zephyr'       => I18N::translate('bootswatch-zephyr'),
+            ];
 
-        uasort($palettes, I18N::comparator());
+            $palettes = array_merge($palettes, $bootswatch_palettes);
+        }     
 
         return $palettes;
     }
