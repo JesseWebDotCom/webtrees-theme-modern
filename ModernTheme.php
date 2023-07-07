@@ -117,11 +117,11 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         View::registerCustomView('::individual-page-tabs', $this->name() . '::individual-page-tabs');
         View::registerCustomView('::individual-page-menu', $this->name() . '::individual-page-menu');
         View::registerCustomView('::individual-page-names', $this->name() . '::individual-page-names');
-        View::registerCustomView('::individual-page-images', $this->name() . '::individual-page-images');        
+        View::registerCustomView('::individual-page-images', $this->name() . '::individual-page-images');
 
         View::registerCustomView('::modules/family_nav/sidebar-family', $this->name() . '::modules/family_nav/sidebar-family');
         // View::registerCustomView('::modules/place-hierarchy/map', $this->name() . '::modules/place-hierarchy/map');
-        
+
         View::registerCustomView('::fact', $this->name() . '::fact');
 
 
@@ -158,9 +158,9 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
             'enable_unsupported' => $this->getPreference('enable-unsupported', '0'),
 
             'allow_switch' => $this->getPreference('allow-switch', '0'),
-            'palette'      => $this->getPreference('palette', 'modern-default'),
-            'palettes'     => $this->palettes(),
-            'title'        => $this->title(),
+            'palette' => $this->getPreference('palette', 'modern-default'),
+            'palettes' => $this->palettes(),
+            'title' => $this->title(),
         ]);
     }
 
@@ -183,7 +183,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
             }
 
             $this->setPreference('palette', $params['palette']);
-            
+
             $this->setPreference('allow-switch', $params['allow-switch']);
 
             $this->setPreference('enable-icons', $params['enable-icons']);
@@ -205,7 +205,8 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
      *
      * @return string
      */
-    public function headContent(): string {
+    public function headContent(): string
+    {
 
         return
             '<!-- required for font awesome icons -->
@@ -252,7 +253,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
     public function stylesheets(): array
     {
         $files = [];
-        
+
         $palette = $this->palette();
 
         // load changes that apply to all palettes
@@ -261,11 +262,11 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
         // load each palette
         $baseDirectory = 'css/palettes/';
-    
+
         $paletteParts = explode('-', $palette);
         $paletteName = $paletteParts[0];
         $subDirectory = isset($paletteParts[1]) ? $paletteParts[1] : '';
-    
+
         if ($subDirectory) {
             $file = $baseDirectory . $paletteName . '/' . $subDirectory . '/bootstrap.min.css';
             $files[] = $this->assetUrl($file);
@@ -281,10 +282,10 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
         // base styles (must be here to override palettes)
         $files[] = $this->assetUrl('css/base.min.css');
-    
+
         return $files;
     }
-    
+
 
     /**
      * A footer, to be added at the bottom of every page.
@@ -360,7 +361,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         return $menu;
     }
 
-     /**
+    /**
      * Switch to a new palette
      *
      * @param ServerRequestInterface $request
@@ -389,40 +390,40 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
     {
 
         $palettes = [
-            'modern-default'       => I18N::translate('modern-default'),
-            'modern-plain'         => I18N::translate('modern-plain'),
-            'modern-ancestry'      => I18N::translate('modern-ancestry'),
+            'modern-default' => I18N::translate('modern-default'),
+            'modern-plain' => I18N::translate('modern-plain'),
+            'modern-ancestry' => I18N::translate('modern-ancestry'),
         ];
-        
+
         if ($this->getPreference('enable-unsupported')) {
             $bootswatch_palettes = [
-                'bootswatch-cerulean'       => I18N::translate('bootswatch-cerulean'),
-                'bootswatch-cosmo'       => I18N::translate('bootswatch-cosmo'),
-                'bootswatch-cyborg'       => I18N::translate('bootswatch-cyborg'),
-                'bootswatch-darkly'       => I18N::translate('bootswatch-darkly'),
-                'bootswatch-flatly'       => I18N::translate('bootswatch-flatly'),
-                'bootswatch-journal'       => I18N::translate('bootswatch-journal'),
-                'bootswatch-litera'       => I18N::translate('bootswatch-litera'),
-                'bootswatch-lumen'       => I18N::translate('bootswatch-lumen'),
-                'bootswatch-lux'       => I18N::translate('bootswatch-lux'),
-                'bootswatch-materia'       => I18N::translate('bootswatch-materia'),
-                'bootswatch-minty'       => I18N::translate('bootswatch-minty'),
-                'bootswatch-morph'       => I18N::translate('bootswatch-morph'),
-                'bootswatch-pulse'       => I18N::translate('bootswatch-pulse'),
-                'bootswatch-quartz'       => I18N::translate('bootswatch-quartz'),
-                'bootswatch-sandstone'       => I18N::translate('bootswatch-sandstone'),
-                'bootswatch-simplex'       => I18N::translate('bootswatch-simplex'),
-                'bootswatch-sketchy'       => I18N::translate('bootswatch-sketchy'),
-                'bootswatch-spacelab'       => I18N::translate('bootswatch-spacelab'),
-                'bootswatch-superhero'       => I18N::translate('bootswatch-superhero'),
-                'bootswatch-united'       => I18N::translate('bootswatch-united'),
-                'bootswatch-vapor'       => I18N::translate('bootswatch-vapor'),
-                'bootswatch-yeti'       => I18N::translate('bootswatch-yeti'),
-                'bootswatch-zephyr'       => I18N::translate('bootswatch-zephyr'),
+                'bootswatch-cerulean' => I18N::translate('bootswatch-cerulean'),
+                'bootswatch-cosmo' => I18N::translate('bootswatch-cosmo'),
+                'bootswatch-cyborg' => I18N::translate('bootswatch-cyborg'),
+                'bootswatch-darkly' => I18N::translate('bootswatch-darkly'),
+                'bootswatch-flatly' => I18N::translate('bootswatch-flatly'),
+                'bootswatch-journal' => I18N::translate('bootswatch-journal'),
+                'bootswatch-litera' => I18N::translate('bootswatch-litera'),
+                'bootswatch-lumen' => I18N::translate('bootswatch-lumen'),
+                'bootswatch-lux' => I18N::translate('bootswatch-lux'),
+                'bootswatch-materia' => I18N::translate('bootswatch-materia'),
+                'bootswatch-minty' => I18N::translate('bootswatch-minty'),
+                'bootswatch-morph' => I18N::translate('bootswatch-morph'),
+                'bootswatch-pulse' => I18N::translate('bootswatch-pulse'),
+                'bootswatch-quartz' => I18N::translate('bootswatch-quartz'),
+                'bootswatch-sandstone' => I18N::translate('bootswatch-sandstone'),
+                'bootswatch-simplex' => I18N::translate('bootswatch-simplex'),
+                'bootswatch-sketchy' => I18N::translate('bootswatch-sketchy'),
+                'bootswatch-spacelab' => I18N::translate('bootswatch-spacelab'),
+                'bootswatch-superhero' => I18N::translate('bootswatch-superhero'),
+                'bootswatch-united' => I18N::translate('bootswatch-united'),
+                'bootswatch-vapor' => I18N::translate('bootswatch-vapor'),
+                'bootswatch-yeti' => I18N::translate('bootswatch-yeti'),
+                'bootswatch-zephyr' => I18N::translate('bootswatch-zephyr'),
             ];
 
             $palettes = array_merge($palettes, $bootswatch_palettes);
-        }     
+        }
 
         return $palettes;
     }
@@ -451,14 +452,15 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
     public function customTranslations(string $language): array
     {
-        $lang_dir   = $this->resourcesFolder() . 'lang/';
+        $lang_dir = $this->resourcesFolder() . 'lang/';
         $extensions = array('mo', 'po');
         foreach ($extensions as &$extension) {
-            $file       = $lang_dir . $language . '.' . $extension;
+            $file = $lang_dir . $language . '.' . $extension;
             if (file_exists($file)) {
                 return (new Translation($file))->asArray();
             }
         }
         return [];
     }
-};
+}
+;

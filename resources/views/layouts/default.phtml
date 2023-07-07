@@ -20,9 +20,9 @@ $view = view('::layouts/default', get_defined_vars());
 preg_match('/<h1 class="col wt-site-title">(.*?)<\/h1>/s', $view, $siteTitle);
 $siteTitle = '<div class="col wt-site-logo"></div>' . $siteTitle[1] ?? '';
 
-// Extract search box
-preg_match('/<form[^>]+class="[^"]*wt-header-search-form[^"]*"[^>]*>(.*?)<\/form>/s', $view, $searchBox);
-$searchBox = $searchBox[0] ?? '';
+// Extract search form
+preg_match('/(<form[^>]+class="[^"]*wt-header-search-form[^"]*"[^>]*>[\s\S]*?<\/form>)/s', $view, $searchBox);
+$searchBox = $searchBox[1] ?? '';
 
 // Extract primary navigation menu
 preg_match('/<nav class="col wt-primary-navigation">.*?<ul class="nav wt-genealogy-menu">(.*?)<\/ul>/s', $view, $primaryNavigation);
@@ -49,24 +49,27 @@ $secondaryNavigation = $secondaryNavigation[1] ?? '';
   <div class="nav-item menu-search" style="font-size: 24px !important">
     <a class="nav-link" href="<?= e($tree_url) . '/search-general' ?>"></a>
   </div> -->
-</div>
+  </div>
 
 
-  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarContent"
+    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarContent">
-    <form class="form-inline my-2 my-lg-0">
-      <?= $searchBox ?>
-    </form>    
-    <span style="font-weight: 700; font-size: 16px; padding-top: 10px"><?= I18N::translate('MAIN MENU') ?></span>
+    <?= $searchBox ?>
+    <span style="font-weight: 700; font-size: 16px">
+      <?= I18N::translate('MAIN MENU') ?>
+    </span>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <?= $primaryNavigation ?>
     </ul>
     <hr>
-    <span style="font-weight: 700; font-size: 16px"><?= I18N::translate('SETTINGS') ?></span>
-    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">      
+    <span style="font-weight: 700; font-size: 16px">
+      <?= I18N::translate('SETTINGS') ?>
+    </span>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <?= $secondaryNavigation ?>
     </ul>
   </div>
