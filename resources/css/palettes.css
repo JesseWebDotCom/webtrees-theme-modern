@@ -128,31 +128,86 @@ bdi {
 
 /* #region | SLIDESHOW */
 
+/* give more surrounding space */
+#slide-show-content {
+    padding: 0px 20px 20px 20px;
+}
+
+/* elimnate padding between card header and body */
+.card-header.wt-block-header.wt-block-header-random_media {
+    padding-bottom: 0px;
+    margin-top: 0!important;
+    padding-top: 0px;
+}
+
+/* center people thumbnails/names/links below main photo */
+#slide-show-links-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* reduce spacing around people thumbnails/names/links */
+.fa-ul.wt-slide-show-links {
+    width: fit-content;
+    margin: 0;
+    padding: 0;
+}
+
+/* main photo */
+.slide-show-image.img-fluid {
+    /* make main photo look like an old paper photo print with round edge, shadow, etc */
+    border-radius: 20px;
+    box-shadow: 0 6px 6px hsl(0deg 0% 0% / 0.3);
+    /* give space between main photo and first people thumbnails/names/links */
+    margin-bottom: 10px;
+  }
+
+/* caption under main photo */
+.wt-slide-show-figcaption {
+    /* reduce caption size and weight */
+    font-size: 12px;
+    font-weight: 300;
+    /* make text clearer on blurred background */
+    text-shadow: white 1px 0 10px;
+}
+
+/* people - name */
+.wt-slide-show-links .NAME {
+    padding-left: 0px !important;
+    font-size: 12px;
+    font-weight: 600;
+    /* make text clearer on blurred background */
+    text-shadow: white 1px 0 10px;
+}
+
+/* people - thumbnail */
+.wt-slide-show-links .wt-chart-box-thumbnail {
+    /* make small to align/fit with person name */
+    height: 18px;
+    width: 18px;
+}
+
+/* people thumbnails/names/links */
 .wt-slide-show-links > li {
+    /* aligns thumbnails with name/link */
     display: flex;
     align-items: center;
-    }
+}
 
-.wt-slide-show-links .NAME {
-    padding-left: 5px;
-    }
+/* media control buttons */
+.wt-icon-media-play,
+.wt-icon-media-stop,
+.wt-icon-media-next {
+    /* make buttons larger */
+    font-size: 24px;
+}    
 
-    .wt-icon-media-play,
-    .wt-icon-media-stop,
-    .wt-icon-media-next {
-        font-size: 24px;
-    }    
-
-    .wt-slide-show-controls {
-        padding-bottom: 10px;
-    }
+/* media control buttons container */
+.wt-slide-show-controls {
+    /* give some space between buttons and main photo */
+    padding-bottom: 10px;
+}
     
-    .card-body.wt-block-content.wt-block-content-random_media {
-        /* padding: 0px; */
-        /* margin: 10px; */
-        }
-    
-   
 /* #endregion | SLIDESHOW */
 
 /* #region | MISC */
@@ -303,6 +358,7 @@ bdi {
     .wt-place-hierarchy-sidebar {
         overflow-y:unset !important;
     } 
+    
 
 }
 @media (min-width: 1025px) {

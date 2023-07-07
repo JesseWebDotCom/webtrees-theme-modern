@@ -243,60 +243,6 @@ body {
     border: 0px !important;
 }
 
-/* SLIDE SHOW */
-
-#slide-show-content {
-    padding: 20px;
-    }
-
-.card-header.wt-block-header.wt-block-header-random_media {
-    padding-bottom: 0px;
-    }
-
-.card-body.wt-block-content.wt-block-content-random_media {
-    margin-top: 0!important;
-    padding-top: 0px;
-    }
-
-#slide-show-links-container {
-    display: flex;
-    justify-content: center;
-}
-
-.fa-ul.wt-slide-show-links {
-    width: fit-content;
-    margin: 0;
-    padding: 0;
-    }
-
-.slide-show-image.img-fluid {
-    border-radius: 20px;
-    box-shadow: 0 6px 6px hsl(0deg 0% 0% / 0.3);
-    margin-bottom: 10px;
-  }
-  
-.wt-slide-show-figcaption {
-    font-size: 12px;
-    font-weight: 300;
-    text-shadow: var(--white-color) 1px 0 10px;
-}
-
-.wt-slide-show-links .NAME {
-    padding-left: 0px;
-    font-size: 12px;
-    font-weight: 600;
-    text-shadow: var(--white-color) 1px 0 10px;
-}
-
-.wt-slide-show-links > li {
-    padding-bottom: 5px;
-}
-
-.wt-slide-show-links .wt-chart-box-thumbnail {
-    height: 18px;
-    width: 18px;
-}
-
 /* FACTS */
 
 /* shade to distinguish between individual and historic facts */
