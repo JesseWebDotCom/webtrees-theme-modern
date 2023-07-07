@@ -49,12 +49,10 @@ if ($user !== null) {
             $relationship = $relationship_service->getCloseRelationshipName($individual1, $record);
 
             if (!empty($relationship)) {
-                $translated = I18N::translateContext('modern-relation', $relationship);
-
-                if ($translated === I18N::translateContext('modern-relation', 'himself') || $relationship === I18N::translateContext('modern-relation', 'herself') || $relationship === I18N::translateContext('modern-relation', 'themself')) {
-                    $relationship = $translated;
+                if ($relationship === I18N::translate('himself') || $relationship === I18N::translate('herself') || $relationship === I18N::translate('themself')) {
+                    $relationship = I18N::translateContext('modern-relation', 'you');
                 } else {
-                    $relationship = I18N::translateContext('modern-relation', 'your') . ' ' . $translated;
+                    $relationship = I18N::translateContext('modern-relation', 'your') . ' ' . I18N::translate($relationship);
                 }
             }
         }

@@ -27,15 +27,7 @@ msgstr "SETTINGS"
 
 # RELATION
 msgctxt "modern-relation"
-msgid "himself"
-msgstr "you"
-
-msgctxt "modern-relation"
-msgid "herself"
-msgstr "you"
-
-msgctxt "modern-relation"
-msgid "themself"
+msgid "you"
 msgstr "you"
 
 msgctxt "modern-relation"
