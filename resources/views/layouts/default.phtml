@@ -1,6 +1,9 @@
 <?php
 use Fisharebest\Webtrees\I18N;
 
+use Fisharebest\Webtrees\Module\ModuleThemeInterface;
+
+
 // Used for getting tree URL
 use Fisharebest\Webtrees\Tree;
 use Fisharebest\Webtrees\Http\RequestHandlers\TreePage;
@@ -69,4 +72,5 @@ $secondaryNavigation = $secondaryNavigation[1] ?? '';
   </div>
 </nav>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+<!-- required for nav toggler/menu -->
+<script src="<?= e(app(ModuleThemeInterface::class)->assetUrl('js/bootstrap.min.js')) ?>"></script>

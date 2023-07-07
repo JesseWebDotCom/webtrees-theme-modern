@@ -208,7 +208,8 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
     public function headContent(): string {
 
         return
-            '<style>
+            '<!-- required for font awesome icons -->
+            <style>
 
             @font-face {
                 font-family: \'icomoon\';
