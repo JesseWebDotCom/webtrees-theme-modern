@@ -17,6 +17,9 @@ msgstr "Customizations"
 msgid "Enable icons for headings and menus"
 msgstr "Enable icons for headings and menus"
 
+msgid "Enable unsupported palettes"
+msgstr "Enable unsupported palettes"
+
 # MENUS
 
 msgid "MAIN MENU"

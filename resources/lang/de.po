@@ -15,6 +15,9 @@ msgstr "Aanpassingen"
 msgid "Enable icons for headings and menus"
 msgstr "Pictogrammen inschakelen voor koppen en menu's"
 
+msgid "Enable unsupported palettes"
+msgstr "Aktivieren Sie nicht unterstützte Paletten"
+
 # MENUS
 msgid "MAIN MENU"
 msgstr "HOOFDMENU"
