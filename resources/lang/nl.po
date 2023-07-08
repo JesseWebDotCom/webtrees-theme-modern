@@ -45,4 +45,4 @@ msgstr "jij"
 
 msgctxt "modern-relation"
 msgid "your"
-msgstr "jouw"
+msgstr "je"
