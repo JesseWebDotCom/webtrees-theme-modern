@@ -28,16 +28,16 @@ use Illuminate\Support\Collection;
 <?php if ($individual_media->isNotEmpty() || $tree->getPreference('USE_SILHOUETTE') === '1') : ?>
         <?php if ($individual_media->isEmpty()) : ?>
             <div class="img-thumbnail">
-                <i class="wt-individual-silhouette wt-individual-silhouette-<?= strtolower($record->sex()) ?> wt-icon-flip-rtl w-100"></i>
+                <i class="wt-individual-silhouette wt-individual-silhouette-<?= strtolower($record->sex()) ?> wt-icon-flip-rtl"></i>
             </div>
         <?php elseif ($individual_media->count() === 1) : ?>
-            <?= $individual_media->first()->displayImage(100, 100, 'crop', ['class' => 'img-thumbnail img-fluid w-100']) ?>
+            <?= $individual_media->first()->displayImage(100, 100, 'crop', ['class' => 'img-thumbnail img-fluid']) ?>
         <?php else : ?>
             <div id="individual-images" class="carousel slide" data-bs-interval="false">
                 <div class="carousel-inner">
                     <?php foreach ($individual_media as $n => $media_file) : ?>
                         <div class="carousel-item <?= $n === 0 ? 'active' : '' ?>">
-                            <?= $media_file->displayImage(100, 100, 'crop', ['class' => 'img-thumbnail img-fluid w-100']) ?>
+                            <?= $media_file->displayImage(100, 100, 'crop', ['class' => 'img-thumbnail img-fluid']) ?>
                         </div>
                     <?php endforeach ?>
                 </div>
