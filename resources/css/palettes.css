@@ -238,6 +238,11 @@ bdi {
 
 /* #region | FACTS */
 
+/* individual name and dates */
+.wt-page-title span.NAME {
+  font-size: 20px;
+}
+
 /* relationship */
 
 .relationship {

@@ -302,10 +302,6 @@ body {
     color: var(--black-color) !important;
 }
 
-.wt-page-title span.NAME {
-    font-size: 20px;
-}
-
 [dir] .wt-page-title {
     text-align: left !important;
 }
