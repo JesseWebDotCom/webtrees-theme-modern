@@ -1,7 +1,8 @@
 :root {
     --main-font-family: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    --main-bg: #F4F7FC;  
-    --main-color: rgb(107, 124, 143);  
+    --bs-body-bg: #F4F7FC;  
+    --bs-body-color-rgb: 107, 124, 143;
+    --bs-body-color: rgb(var(--bs-body-color-rgb));  
     --header-color: rgb(255, 255, 255);
     --header-bg: rgb(54, 68, 217);
 
@@ -139,8 +140,8 @@ body {
 
 /* MAIN */
 [dir] .wt-global, .wt-global {
-    background-color: var(--main-bg) !important;
-    color: var(--main-color) !important;
+    background-color: var(--bs-body-bg) !important;
+    color: var(--bs-body-color) !important;
 }
 
 [dir] .container-lg {
@@ -260,15 +261,6 @@ body {
     border-collapse: separate;
     border-spacing: 4px;    
 } */
-
-/* profile pic */
-
-[dir] .img-thumbnail {
-    border-radius: 20px;
-    /* border: 1px solid var(--header-bg) !important;
-    border-collapse: separate;
-    border-spacing: 15px;   */
-}
 
 #individual-header-table tr:first-child td:first-child {
     padding-right: 10px;

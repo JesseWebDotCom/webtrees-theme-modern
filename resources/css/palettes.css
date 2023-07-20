@@ -84,8 +84,34 @@ bdi {
 .individual-header .wt-page-title {
   text-align: left;
   font-weight: 400;
-  font-size: 1rem;
-  margin-bottom: 5px;
+  font-size: 20px;
+  line-height: 20px;
+  margin-bottom: 5px;  
+  padding-left: 5px;
+}
+
+/* padding above name */
+h2.wt-page-title {
+  padding-top: 10px;
+}
+
+/* individual dates */
+.individual-header h4.wt-page-title {
+  font-size: 16px;
+  line-height: 18px;
+}
+
+/* individual tables */
+#individual-header-table {
+  /* reduce spacing */
+  -webkit-border-horizontal-spacing: 0px;
+  -webkit-border-vertical-spacing: 0px;
+}
+
+/* individual names carosel */
+#names-carousel .label {
+  /* hide Name: label */
+  display: none;
 }
 
 /* ALBUM */
@@ -226,6 +252,7 @@ bdi {
 ::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -243,12 +270,18 @@ bdi {
   font-size: 20px;
 }
 
+/* individual profile pic */
+
+[dir] .img-thumbnail {
+  border-radius: 20px;
+}
+
 /* relationship */
 
 .relationship {
   font-size: 18px !important;
   line-height: 18px;
-  /* padding-top: 10px; */
+  padding-top: 5px;
   font-style: italic;
   text-align: center;
 }

@@ -6,7 +6,7 @@
     content: var(--content);
     display: inline-block;
     margin-right: 5px;
-    color: rgb(var(--bs-body-color-rgb), .25);
+    color: rgb(var(--bs-body-color-rgb), 1);
   }
   
 /* Specific usage */
