@@ -17,6 +17,9 @@ msgstr "Anpassungen"
 msgid "Enable icons for headings and menus"
 msgstr "Symbole für Überschriften und Menüs aktivieren"
 
+msgid "Enable icons for facts"
+msgstr "Aktivieren Sie Symbole für Fakten"
+
 msgid "Enable unsupported palettes"
 msgstr "Nicht unterstützte Paletten aktivieren"
 

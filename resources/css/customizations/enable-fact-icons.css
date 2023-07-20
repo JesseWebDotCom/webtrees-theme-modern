@@ -1,0 +1,196 @@
+/*#region | FACT ICONS */
+
+.icon-selected,
+.wt-fact-icon-_MILT:before,
+.wt-fact-icon-ADOP:before,
+.wt-fact-icon-ANUL:before,
+.wt-fact-icon-BAPL:before,
+.wt-fact-icon-BAPM:before,
+.wt-fact-icon-BIRT:before,
+.wt-fact-icon-BURI:before,
+.wt-fact-icon-CHR:before,
+.wt-fact-icon-DEAT:before,
+.wt-fact-icon-DIV:before,
+.wt-fact-icon-EDUC:before,
+.wt-fact-icon-ENGA:before,
+.wt-fact-icon-EVEN:before,
+.wt-fact-icon-EVEN[title^='Adoption']:before,
+.wt-fact-icon-EVEN[title^='Arrival']:before,
+.wt-fact-icon-EVEN[title^='Birth of a']:before,
+.wt-fact-icon-EVEN[title^='Burial']:before,
+.wt-fact-icon-EVEN[title^='Christening']:before,
+.wt-fact-icon-EVEN[title^='Death']:before,
+.wt-fact-icon-EVEN[title^='Departure']:before,
+.wt-fact-icon-EVEN[title^='Family']:before,
+.wt-fact-icon-EVEN[title^='Marriage']:before,
+.wt-fact-icon-EVEN[title$='President of the United States']:before,
+.wt-fact-icon-IMMI:before,
+.wt-fact-icon-MARB:before,
+.wt-fact-icon-MARR:before,
+.wt-fact-icon-NATU:before,
+.wt-fact-icon-OCCU:before,
+.wt-fact-icon-PROP:before,
+.wt-fact-icon-RESI:before,
+.wt-fact-icon-RETI:before,
+.wt-fact-icon-SLGS:before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 16px;
+}
+
+.icon-selected {
+    /* color: rgb(var(--theme-accent-background-color-rgb)); */
+    font-size: 24px;
+}
+
+.icon-selected:before {
+    content: '\f00c\00a0';
+}
+
+.wt-fact-icon-_MILT {
+    color: #097969;
+}
+
+.wt-fact-icon-_MILT:before {
+    content: "\f5a2\00a0";
+}
+
+.wt-fact-icon-ADOP,
+.wt-fact-icon-EVEN[title^='Adoption'] {
+    color: #D2A9A1;
+}
+
+.wt-fact-icon-ADOP:before,
+.wt-fact-icon-EVEN[title^='Adoption']:before {
+    content: "\f4c4\00a0";
+}
+
+.wt-fact-icon-BAPL,
+.wt-fact-icon-BAPM,
+.wt-fact-icon-CHR,
+.wt-fact-icon-EVEN[title^='Christening'] {
+    color: #FFC300;
+}
+
+.wt-fact-icon-BAPL:before,
+.wt-fact-icon-BAPM:before,
+.wt-fact-icon-CHR:before,
+.wt-fact-icon-EVEN[title^='Christening']:before {
+    content: "\f654\00a0";
+}
+
+.wt-fact-icon-BIRT,
+.wt-fact-icon-EVEN[title^='Birth of a'] {
+    color: #008080;
+}
+
+.wt-fact-icon-BIRT:before,
+.wt-fact-icon-EVEN[title^='Birth of a']:before {
+    content: "\f77d\00a0";
+}
+
+.wt-fact-icon-BURI:before,
+.wt-fact-icon-EVEN[title^='Burial']:before {
+    content: "\f557\00a0";
+}
+
+.wt-fact-icon-DEAT,
+.wt-fact-icon-EVEN[title^='Death'] {
+    color: black;
+}
+
+.wt-fact-icon-DEAT:before,
+.wt-fact-icon-EVEN[title^='Death']:before {
+    content: "\f4d6\00a0";
+}
+
+.wt-fact-icon-EDUC:before {
+    content: "\f549\00a0";
+}
+
+.wt-fact-icon-ENGA:before,
+.wt-fact-icon-MARB:before {
+    content: "\f70b\00a0";
+}
+
+.wt-fact-icon-EVEN:before {
+    content: "\f005\00a0";
+}
+
+.wt-fact-icon-EVEN[title$='President of the United States']:before {
+    content: "\f74d\00a0";
+}
+
+.wt-fact-icon-EVEN[title^='Arrival']:before {
+    content: "\f5af";
+}
+
+.wt-fact-icon-EVEN[title^='Departure']:before {
+    content: "\f5b0\00a0";
+}
+
+.wt-fact-icon-EVEN[title^='Family']:before {
+    content: "\f0c0\00a0";
+}
+
+.wt-fact-icon-IMMI {
+    color: #0047AB;
+}
+
+.wt-fact-icon-IMMI:before {
+    content: "\f5ab\00a0";
+}
+
+.wt-fact-icon-ANUL,
+.wt-fact-icon-DIV {
+    color: #880808;
+}
+
+.wt-fact-icon-ANUL:before,
+.wt-fact-icon-DIV:before {
+    content: "\f7a9\00a0";
+}
+
+.wt-fact-icon-MARR,
+.wt-fact-icon-SLGS,
+.wt-fact-icon-EVEN[title^='Marriage'] {
+    color: #FF0000;
+}
+
+.wt-fact-icon-MARR:before,
+.wt-fact-icon-SLGS:before,
+.wt-fact-icon-EVEN[title^='Marriage']:before {
+    content: "\f004\00a0";
+}
+
+.wt-fact-icon-NATU:before {
+    content: "\f024\00a0";
+}
+
+.wt-fact-icon-OCCU {
+    color: #6C5738;
+}
+
+.wt-fact-icon-OCCU:before {
+    content: "\f0b1\00a0";
+}
+
+.wt-fact-icon-PROP,
+.wt-fact-icon-RESI {
+    color: #93C572;
+}
+
+.wt-fact-icon-PROP:before,
+.wt-fact-icon-RESI:before {
+    content: "\e00d\00a0";
+}
+
+.wt-fact-icon-RETI {
+    color: #7B68EE;
+}
+
+.wt-fact-icon-RETI:before {
+    content: "\f236";
+}
+
+/*#endregion | FACT ICONS */

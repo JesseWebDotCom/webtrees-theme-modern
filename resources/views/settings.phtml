@@ -52,13 +52,21 @@ use Fisharebest\Webtrees\Http\RequestHandlers\ControlPanel;
         <hr/>
         <h4><?= I18N::translate('Customizations') ?></h4>
         <div class="row mb-3">
-            <label class="col-sm-3 col-form-label" for="enable-icons">
+            <label class="col-sm-3 col-form-label" for="enable-menu-icons">
                 <?= I18N::translate('Enable icons for headings and menus') ?>
             </label>
             <div class="col-sm-9 my-auto">
-                <?= view('components/radios-inline', ['name' => 'enable-icons', 'options' => [I18N::translate('no'), I18N::translate('yes')], 'selected' => (int) $enable_icons]) ?>
+                <?= view('components/radios-inline', ['name' => 'enable-menu-icons', 'options' => [I18N::translate('no'), I18N::translate('yes')], 'selected' => (int) $enable_menu_icons]) ?>
             </div>
-        </div>        
+        </div>    
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label" for="enable-fact-icons">
+                <?= I18N::translate('Enable icons for facts') ?>
+            </label>
+            <div class="col-sm-9 my-auto">
+                <?= view('components/radios-inline', ['name' => 'enable-fact-icons', 'options' => [I18N::translate('no'), I18N::translate('yes')], 'selected' => (int) $enable_fact_icons]) ?>
+            </div>
+        </div>                
 
         <!-- SAVE BUTTON -->
         <hr/>

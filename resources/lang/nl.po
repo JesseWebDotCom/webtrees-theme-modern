@@ -28,6 +28,9 @@ msgstr "Aanpassingen"
 msgid "Enable icons for headings and menus"
 msgstr "Pictogrammen inschakelen voor koppen en menu's"
 
+msgid "Enable icons for facts"
+msgstr "Pictogrammen voor feiten inschakelen"
+
 msgid "Enable unsupported palettes"
 msgstr "Schakel niet-ondersteunde paletten in"
 

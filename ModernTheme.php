@@ -154,7 +154,8 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         $this->layout = 'layouts/administration';
 
         return $this->viewResponse($this->name() . '::settings', [
-            'enable_icons' => $this->getPreference('enable-icons', '0'),
+            'enable_menu_icons' => $this->getPreference('enable-menu-icons', '0'),
+            'enable_fact_icons' => $this->getPreference('enable-fact-icons', '0'),
             'enable_unsupported' => $this->getPreference('enable-unsupported', '0'),
 
             'allow_switch' => $this->getPreference('allow-switch', '0'),
@@ -186,7 +187,8 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
             $this->setPreference('allow-switch', $params['allow-switch']);
 
-            $this->setPreference('enable-icons', $params['enable-icons']);
+            $this->setPreference('enable-menu-icons', $params['enable-menu-icons']);
+            $this->setPreference('enable-fact-icons', $params['enable-fact-icons']);
             $this->setPreference('enable-unsupported', $params['enable-unsupported']);
 
 
@@ -276,8 +278,11 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
         }
 
         // load any palette customizations
-        if ($this->getPreference('enable-icons')) {
-            $files[] = $this->assetUrl('css/customizations/enable-icons.min.css');
+        if ($this->getPreference('enable-menu-icons')) {
+            $files[] = $this->assetUrl('css/customizations/enable-menu-icons.min.css');
+        }
+        if ($this->getPreference('enable-fact-icons')) {
+            $files[] = $this->assetUrl('css/customizations/enable-fact-icons.min.css');
         }
 
         // base styles (must be here to override palettes)
