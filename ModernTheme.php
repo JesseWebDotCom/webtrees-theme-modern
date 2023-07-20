@@ -38,7 +38,7 @@ class ModernTheme extends MinimalTheme implements ModuleThemeInterface, ModuleCu
 
     // Module constants
     public const CUSTOM_AUTHOR = 'JessewebDotCom';
-    public const CUSTOM_VERSION = '0.1.1';
+    public const CUSTOM_VERSION = '0.1.2';
     public const GITHUB_REPO = 'webtrees-theme-modern';
     public const AUTHOR_WEBSITE = 'jesseweb.com';
     public const CUSTOM_SUPPORT_URL = 'https://github.com/JesseWebDotCom/webtrees-theme-modern';
