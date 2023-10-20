@@ -2336,6 +2336,7 @@ div.faq_title {
     border-radius: 50%;
     height: 32px;
     width: 32px;
+    object-fit: cover;
 }
 
 .wt-chart-ancestors .wt-chart-box,
